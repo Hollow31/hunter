@@ -61,13 +61,39 @@
       </div>
     </section>
 
+    <!-- ==================== HUB SCREEN ==================== -->
+    <section id="screen-hub" class="screen">
+      <div class="container">
+        <div class="hub-header">
+          <h1 id="hub-title">🗺️ Carte des Énigmes</h1>
+          <div class="hub-info">
+            <span id="hub-team" class="team-badge">🏴‍☠️ Équipe</span>
+            <span id="hub-progress" class="hub-progress-text">0/10 résolues</span>
+          </div>
+          <div class="progress-bar">
+            <div id="hub-progress-fill" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="hub-grid" class="hub-grid">
+          <!-- Filled dynamically -->
+        </div>
+
+        <div id="hub-complete" class="hub-complete hidden">
+          <button id="btn-final" class="btn btn-primary btn-lg">
+            🏆 Voir le résultat final !
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== STEP SCREEN ==================== -->
     <section id="screen-step" class="screen">
       <div class="container">
         <!-- Progress bar -->
         <div class="progress-wrapper">
           <div class="progress-info">
-            <span id="team-display" class="team-badge">🏴‍☠️ Équipe</span>
+            <button id="btn-back-hub" class="btn btn-back" onclick="goToHub()">← Retour</button>
             <span id="step-counter" class="step-counter">1/10</span>
           </div>
           <div class="progress-bar">

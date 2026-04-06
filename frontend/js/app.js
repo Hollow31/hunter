@@ -90,14 +90,11 @@ async function restoreSession() {
     state.totalSteps = team.totalSteps;
 
     if (team.completedAt) {
-      // Already finished
-      state.currentStep = team.totalSteps;
       showScreen('final');
       await loadFinalScreen();
     } else {
-      state.currentStep = team.currentStep;
-      showScreen('step');
-      await loadStep(state.currentStep);
+      showScreen('hub');
+      await loadHub();
     }
   } catch (e) {
     clearSession();
@@ -143,12 +140,11 @@ function setupFormHandlers() {
 
       state.teamId = team.id;
       state.teamName = team.name;
-      state.currentStep = team.currentStep;
       state.totalSteps = team.totalSteps;
       saveSession();
 
-      showScreen('step');
-      await loadStep(state.currentStep);
+      showScreen('hub');
+      await loadHub();
     } catch (e) {
       showError(e.message);
     } finally {
@@ -175,7 +171,6 @@ function setupFormHandlers() {
 
       state.teamId = team.id;
       state.teamName = team.name;
-      state.currentStep = team.currentStep;
       state.totalSteps = team.totalSteps;
       saveSession();
 
@@ -183,8 +178,8 @@ function setupFormHandlers() {
         showScreen('final');
         await loadFinalScreen();
       } else {
-        showScreen('step');
-        await loadStep(state.currentStep);
+        showScreen('hub');
+        await loadHub();
       }
     } catch (e) {
       showError(e.message);
@@ -221,6 +216,70 @@ function showError(msg) {
 
 function hideError() {
   document.getElementById('home-error').classList.add('hidden');
+}
+
+// ---- Hub ----
+async function loadHub() {
+  try {
+    showLoading();
+    const data = await apiFetch(`/steps/${encodeURIComponent(state.teamId)}`);
+
+    document.getElementById('hub-team').textContent = '🏴‍☠️ ' + data.teamName;
+    document.getElementById('hub-progress').textContent =
+      `${data.completedCount}/${data.totalSteps} résolues`;
+    document.getElementById('hub-progress-fill').style.width =
+      `${(data.completedCount / data.totalSteps) * 100}%`;
+
+    state.totalSteps = data.totalSteps;
+
+    const grid = document.getElementById('hub-grid');
+    grid.innerHTML = '';
+
+    data.steps.forEach(step => {
+      const el = document.createElement('div');
+      el.className = 'hub-step' + (step.isCompleted ? ' completed' : '');
+      el.innerHTML = `
+        <div class="hub-step-number">${step.isCompleted ? '✓' : step.number}</div>
+        <div class="hub-step-info">
+          <div class="hub-step-title">${escapeHtml(step.title)}</div>
+          <div class="hub-step-type">${step.icon} ${escapeHtml(step.type.replace('_', ' '))}</div>
+        </div>
+        <div class="hub-step-status">${step.isCompleted ? '✅' : '➡️'}</div>
+      `;
+      el.addEventListener('click', () => {
+        if (step.isCompleted) return; // already done
+        state.currentStep = step.number;
+        showScreen('step');
+        loadStep(step.number);
+      });
+      if (step.isCompleted) {
+        el.style.cursor = 'default';
+        el.style.opacity = '0.7';
+      }
+      grid.appendChild(el);
+    });
+
+    // Show final button if all completed
+    const completeSection = document.getElementById('hub-complete');
+    if (data.allCompleted) {
+      completeSection.classList.remove('hidden');
+      document.getElementById('btn-final').onclick = async () => {
+        showScreen('final');
+        await loadFinalScreen();
+      };
+    } else {
+      completeSection.classList.add('hidden');
+    }
+  } catch (e) {
+    console.error('Hub load failed:', e);
+  } finally {
+    hideLoading();
+  }
+}
+
+function goToHub() {
+  showScreen('hub');
+  loadHub();
 }
 
 // ---- Step Loading ----
@@ -574,22 +633,17 @@ async function submitAnswer() {
     if (result.valid) {
       showFeedback(true, result.message);
 
-      // Animate progress
-      document.getElementById('progress-fill').style.width =
-        `${(state.currentStep / state.totalSteps) * 100}%`;
-
       if (result.isFinished) {
         // Game complete!
         setTimeout(async () => {
           showScreen('final');
           await loadFinalScreen();
-        }, 1800);
+        }, 2000);
       } else {
-        // Next step
-        state.currentStep = result.nextStep;
+        // Back to hub after a short delay
         setTimeout(() => {
-          loadStep(state.currentStep);
-        }, 1800);
+          goToHub();
+        }, 2000);
       }
     } else {
       showFeedback(false, result.message);

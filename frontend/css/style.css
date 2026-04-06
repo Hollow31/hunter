@@ -879,6 +879,131 @@ input::placeholder {
 }
 
 /* ========================================
+   Hub / Step Selection Screen
+   ======================================== */
+.hub-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.hub-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.hub-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.hub-progress-text {
+  color: var(--primary-light);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.hub-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.hub-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.hub-step:hover {
+  border-color: var(--primary);
+  background: rgba(230, 126, 34, 0.05);
+  transform: translateX(4px);
+}
+
+.hub-step.completed {
+  border-color: var(--accent);
+  background: rgba(39, 174, 96, 0.06);
+}
+
+.hub-step.completed:hover {
+  border-color: var(--accent-light);
+}
+
+.hub-step-number {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-input);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.hub-step.completed .hub-step-number {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.hub-step-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.hub-step-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.hub-step-type {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.hub-step-status {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.hub-complete {
+  text-align: center;
+  animation: pop 0.5s ease;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.btn-back:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+/* ========================================
    Utilities
    ======================================== */
 .hidden {

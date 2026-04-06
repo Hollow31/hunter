@@ -4,6 +4,46 @@ const { validateAnswer } = require('../lib/validators');
 
 const router = express.Router();
 
+// Get all steps overview for a team (hub page)
+router.get('/:teamId', (req, res) => {
+  const { teamId } = req.params;
+
+  const teams = readTeams();
+  const team = teams.find(t => t.id === teamId);
+
+  if (!team) {
+    return res.status(404).json({ error: 'Équipe non trouvée.' });
+  }
+
+  const config = readConfig();
+
+  const typeIcons = {
+    single_answer: '✏️',
+    multiple_answers: '📝',
+    matching: '🔗',
+    cipher: '🔐',
+    order: '📋',
+    qcm: '🎯',
+    puzzle: '🧩'
+  };
+
+  const stepsOverview = config.steps.map((step, i) => ({
+    number: i + 1,
+    title: step.title,
+    type: step.type,
+    icon: typeIcons[step.type] || '❓',
+    isCompleted: team.completedSteps.includes(i + 1)
+  }));
+
+  res.json({
+    teamName: team.name,
+    totalSteps: config.steps.length,
+    completedCount: team.completedSteps.length,
+    allCompleted: team.completedSteps.length >= config.steps.length,
+    steps: stepsOverview
+  });
+});
+
 // Get step info for a team (without answers!)
 router.get('/:teamId/:stepNumber', (req, res) => {
   const { teamId, stepNumber } = req.params;
@@ -20,11 +60,6 @@ router.get('/:teamId/:stepNumber', (req, res) => {
 
   if (stepNum < 1 || stepNum > config.steps.length) {
     return res.status(400).json({ error: 'Numéro d\'étape invalide.' });
-  }
-
-  // Don't allow skipping ahead
-  if (stepNum > team.currentStep) {
-    return res.status(403).json({ error: 'Vous devez d\'abord valider les étapes précédentes.' });
   }
 
   const step = config.steps[stepNum - 1];
@@ -82,10 +117,6 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
     return res.status(400).json({ error: 'Numéro d\'étape invalide.' });
   }
 
-  if (stepNum !== team.currentStep) {
-    return res.status(403).json({ error: 'Ce n\'est pas votre étape actuelle.' });
-  }
-
   if (team.completedSteps.includes(stepNum)) {
     return res.status(400).json({ error: 'Cette étape a déjà été validée.' });
   }
@@ -107,11 +138,9 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
   if (result.valid) {
     team.completedSteps.push(stepNum);
 
-    const isLastStep = stepNum >= config.steps.length;
+    const isLastStep = team.completedSteps.length >= config.steps.length;
     if (isLastStep) {
       team.completedAt = new Date().toISOString();
-    } else {
-      team.currentStep = stepNum + 1;
     }
 
     teams[teamIndex] = team;
@@ -120,7 +149,6 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
     const response = {
       valid: true,
       message: result.message,
-      nextStep: isLastStep ? null : stepNum + 1,
       isFinished: isLastStep
     };
 
