@@ -1,6 +1,7 @@
 {
   "title": "La Grande Chasse au Trésor",
   "subtitle": "Résolvez les 10 énigmes pour découvrir le trésor !",
+  "adminPassword": "hunter2024",
   "theme": {
     "primaryColor": "#e67e22",
     "secondaryColor": "#2c3e50",

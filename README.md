@@ -12,7 +12,8 @@ Application web moderne pour gérer une chasse au trésor par équipes. Interfac
 - **Page finale** avec message de victoire, statistiques et dernier indice
 - **Interface moderne** : dark mode, responsive, mobile-first
 - **Thémable** : couleurs, images, logos personnalisables
-- **Admin** : suivi de la progression de toutes les équipes
+- **Admin** : suivi de la progression de toutes les équipes, visualisation des réponses, suppression d'équipes, réinitialisation complète — protégé par mot de passe
+- **Hub d'énigmes** : les équipes choisissent librement quelle énigme résoudre
 
 ---
 
@@ -237,6 +238,37 @@ Identique à `single_answer` mais avec une présentation différente (icône �
 ```
 
 Formats supportés : JPG, PNG, WebP, GIF, SVG.
+
+---
+
+## 🛡️ Espace Administrateur
+
+### Accès
+
+1. Cliquez sur la petite icône ⚙️ en bas à droite de l'écran
+2. Entrez le mot de passe admin (défini dans `steps.json`)
+3. Par défaut : `hunter2024`
+
+### Changer le mot de passe admin
+
+Dans `backend/config/steps.json`, modifiez le champ `adminPassword` :
+
+```json
+{
+  "adminPassword": "votre_mot_de_passe_ici",
+  ...
+}
+```
+
+### Fonctionnalités admin
+
+| Fonctionnalité | Description |
+|---|---|
+| **Vue équipes** | Voir toutes les équipes, leur progression (dots colorés), tentatives, durée |
+| **Vue réponses** | Voir toutes les réponses correctes pour chaque étape |
+| **Supprimer une équipe** | Bouton 🗑️ sur chaque carte d'équipe |
+| **Tout réinitialiser** | Supprime toutes les équipes et leur progression |
+| **Rafraîchir** | Mise à jour en temps réel de la progression |
 
 ---
 

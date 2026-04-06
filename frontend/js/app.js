@@ -736,3 +736,244 @@ function escapeHtml(str) {
   div.textContent = str;
   return div.innerHTML;
 }
+
+// ========================================
+//  ADMIN
+// ========================================
+
+let adminToken = null;
+
+// Setup admin tabs
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-admintab]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('[data-admintab]').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('admintab-' + tab.dataset.admintab).classList.add('active');
+    });
+  });
+
+  // Admin login
+  document.getElementById('btn-admin-login').addEventListener('click', adminLogin);
+  document.getElementById('admin-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') adminLogin();
+  });
+
+  // Reset all
+  document.getElementById('btn-reset-all').addEventListener('click', async () => {
+    if (!confirm('⚠️ Supprimer TOUTES les équipes et leur progression ? Cette action est irréversible.')) return;
+    try {
+      showLoading();
+      await adminFetch('/admin/reset', { method: 'POST' });
+      await loadAdminTeams();
+    } catch (e) {
+      alert('Erreur : ' + e.message);
+    } finally {
+      hideLoading();
+    }
+  });
+
+  // Restore admin session
+  const savedToken = sessionStorage.getItem('hunter_admin_token');
+  if (savedToken) {
+    adminToken = savedToken;
+  }
+});
+
+async function adminFetch(url, options = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (adminToken) {
+    headers['Authorization'] = 'Bearer ' + adminToken;
+  }
+  const resp = await fetch(API + url, { headers, ...options });
+  const data = await resp.json();
+  if (!resp.ok) {
+    if (resp.status === 401) {
+      adminToken = null;
+      sessionStorage.removeItem('hunter_admin_token');
+      showScreen('admin-login');
+    }
+    throw new Error(data.error || 'Erreur serveur');
+  }
+  return data;
+}
+
+async function adminLogin() {
+  const password = document.getElementById('admin-password').value;
+  const errorEl = document.getElementById('admin-login-error');
+
+  if (!password) {
+    errorEl.textContent = 'Veuillez entrer le mot de passe.';
+    errorEl.classList.remove('hidden');
+    return;
+  }
+
+  try {
+    showLoading();
+    errorEl.classList.add('hidden');
+    const result = await apiFetch('/admin/login', {
+      method: 'POST',
+      body: JSON.stringify({ password })
+    });
+    adminToken = result.token;
+    sessionStorage.setItem('hunter_admin_token', adminToken);
+    document.getElementById('admin-password').value = '';
+
+    showScreen('admin');
+    await loadAdminTeams();
+    await loadAdminAnswers();
+  } catch (e) {
+    errorEl.textContent = e.message;
+    errorEl.classList.remove('hidden');
+  } finally {
+    hideLoading();
+  }
+}
+
+function adminLogout() {
+  if (adminToken) {
+    fetch(API + '/admin/logout', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + adminToken }
+    }).catch(() => {});
+  }
+  adminToken = null;
+  sessionStorage.removeItem('hunter_admin_token');
+  showScreen('home');
+}
+
+async function loadAdminTeams() {
+  try {
+    const teams = await adminFetch('/admin/teams');
+    const list = document.getElementById('admin-teams-list');
+
+    if (teams.length === 0) {
+      list.innerHTML = '<div class="admin-empty">Aucune équipe inscrite pour le moment.</div>';
+      return;
+    }
+
+    list.innerHTML = teams.map(team => {
+      const startDate = new Date(team.startedAt).toLocaleString('fr-FR');
+      const isComplete = team.completedAt !== null;
+      const statusClass = isComplete ? 'done' : 'in-progress';
+      const statusText = isComplete ? '✅ Terminé' : '🔄 En cours';
+
+      let duration = '-';
+      if (isComplete) {
+        const d = Math.floor((new Date(team.completedAt) - new Date(team.startedAt)) / 1000);
+        duration = `${Math.floor(d / 60)}min ${d % 60}s`;
+      }
+
+      const stepDots = Array.from({ length: team.totalSteps }, (_, i) => {
+        const done = team.completedSteps.includes(i + 1);
+        return `<div class="admin-step-dot ${done ? 'done' : ''}">${i + 1}</div>`;
+      }).join('');
+
+      return `
+        <div class="admin-team-card ${isComplete ? 'completed' : ''}">
+          <div class="admin-team-header">
+            <div class="admin-team-name">
+              🏴‍☠️ ${escapeHtml(team.name)}
+              ${team.members.length ? '<span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 400;">(' + escapeHtml(team.members.join(', ')) + ')</span>' : ''}
+            </div>
+            <span class="admin-team-status ${statusClass}">${statusText}</span>
+          </div>
+          <div class="admin-team-details">
+            <div class="admin-detail">
+              <div class="admin-detail-label">Progression</div>
+              <div class="admin-detail-value">${team.completedSteps.length}/${team.totalSteps}</div>
+            </div>
+            <div class="admin-detail">
+              <div class="admin-detail-label">Tentatives</div>
+              <div class="admin-detail-value">${team.totalAttempts}</div>
+            </div>
+            <div class="admin-detail">
+              <div class="admin-detail-label">Début</div>
+              <div class="admin-detail-value" style="font-size: 0.8rem;">${startDate}</div>
+            </div>
+            <div class="admin-detail">
+              <div class="admin-detail-label">Durée</div>
+              <div class="admin-detail-value">${duration}</div>
+            </div>
+          </div>
+          <div class="admin-steps-progress">${stepDots}</div>
+          <div class="admin-team-actions">
+            <button class="btn btn-danger btn-sm" onclick="deleteTeam('${team.id}', '${escapeHtml(team.name)}')">🗑️ Supprimer</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error('Admin teams load failed:', e);
+  }
+}
+
+async function deleteTeam(teamId, teamName) {
+  if (!confirm(`Supprimer l'équipe "${teamName}" ?`)) return;
+  try {
+    showLoading();
+    await adminFetch(`/admin/teams/${teamId}`, { method: 'DELETE' });
+    await loadAdminTeams();
+  } catch (e) {
+    alert('Erreur : ' + e.message);
+  } finally {
+    hideLoading();
+  }
+}
+
+async function loadAdminAnswers() {
+  try {
+    const steps = await adminFetch('/admin/steps');
+    const list = document.getElementById('admin-answers-list');
+
+    list.innerHTML = steps.map(step => {
+      let answerHtml = '';
+
+      switch (step.type) {
+        case 'single_answer':
+        case 'cipher':
+        case 'puzzle':
+          answerHtml = `<strong>Réponses acceptées :</strong> ${step.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(', ')}`;
+          break;
+
+        case 'multiple_answers':
+          answerHtml = `<strong>Réponses :</strong><ul class="answer-list">${step.answers.map(a => `<li><code>${escapeHtml(a)}</code></li>`).join('')}</ul>`;
+          break;
+
+        case 'matching':
+          answerHtml = `<strong>Associations :</strong><ul class="answer-list">${step.pairs.map(p => `<li>${escapeHtml(p.left)} → <code>${escapeHtml(p.right)}</code></li>`).join('')}</ul>`;
+          break;
+
+        case 'order':
+          answerHtml = `<strong>Ordre correct :</strong><ol class="answer-list">${step.correctOrder.map(i => `<li><code>${escapeHtml(i)}</code></li>`).join('')}</ol>`;
+          break;
+
+        case 'qcm':
+          answerHtml = `<strong>Choix :</strong> ${step.choices.map(c =>
+            step.answers.includes(c)
+              ? `<code style="background: rgba(39,174,96,0.2);">${escapeHtml(c)} ✓</code>`
+              : `<code>${escapeHtml(c)}</code>`
+          ).join(', ')}`;
+          break;
+      }
+
+      if (step.hint) {
+        answerHtml += `<br><small style="color: var(--text-muted);">💡 Indice : ${escapeHtml(step.hint)}</small>`;
+      }
+
+      return `
+        <div class="admin-answer-card">
+          <div class="admin-answer-header">
+            <span class="admin-answer-title">${step.number}. ${escapeHtml(step.title)}</span>
+            <span class="admin-answer-type">${step.type}</span>
+          </div>
+          <div class="admin-answer-body">${answerHtml}</div>
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    console.error('Admin answers load failed:', e);
+  }
+}
+

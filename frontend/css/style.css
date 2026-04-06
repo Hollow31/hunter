@@ -1011,6 +1011,262 @@ input::placeholder {
 }
 
 /* ========================================
+   Admin
+   ======================================== */
+.admin-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  opacity: 0.4;
+}
+
+.admin-fab:hover {
+  opacity: 1;
+  border-color: var(--primary);
+}
+
+.admin-container {
+  max-width: 900px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.admin-tabs {
+  margin-bottom: 20px;
+}
+
+.admin-tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.admin-tab-content.active {
+  display: block;
+}
+
+.admin-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger), #c0392b);
+  color: white;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.45);
+}
+
+.admin-teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  transition: var(--transition);
+}
+
+.admin-team-card.completed {
+  border-color: var(--accent);
+}
+
+.admin-team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.admin-team-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-team-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.admin-team-status.in-progress {
+  background: rgba(243, 156, 18, 0.15);
+  color: var(--primary-light);
+}
+
+.admin-team-status.done {
+  background: rgba(39, 174, 96, 0.15);
+  color: var(--accent-light);
+}
+
+.admin-team-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.admin-detail {
+  background: var(--bg-input);
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+}
+
+.admin-detail-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-detail-value {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 2px;
+}
+
+.admin-steps-progress {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.admin-step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: var(--bg-input);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.admin-step-dot.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.admin-team-actions {
+  text-align: right;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+/* Answers tab */
+.admin-answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-answer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+
+.admin-answer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.admin-answer-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.admin-answer-type {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--bg-input);
+  color: var(--text-muted);
+}
+
+.admin-answer-body {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.admin-answer-body strong {
+  color: var(--accent-light);
+}
+
+.admin-answer-body .answer-list {
+  margin-top: 6px;
+  padding-left: 16px;
+}
+
+.admin-answer-body .answer-list li {
+  margin-bottom: 2px;
+}
+
+.admin-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+code {
+  background: var(--bg-input);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--accent-light);
+}
+
+/* ========================================
    Mobile Responsiveness
    ======================================== */
 @media (max-width: 480px) {
