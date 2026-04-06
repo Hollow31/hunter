@@ -1,0 +1,116 @@
+{
+  "title": "La Grande Chasse au Trésor",
+  "subtitle": "Résolvez les 10 énigmes pour découvrir le trésor !",
+  "theme": {
+    "primaryColor": "#e67e22",
+    "secondaryColor": "#2c3e50",
+    "accentColor": "#27ae60",
+    "backgroundImage": "",
+    "logo": ""
+  },
+  "finalMessage": "🎉 Félicitations ! Vous avez résolu toutes les énigmes !\n\nLe trésor se trouve sous le grand chêne au fond du jardin, derrière la troisième pierre en partant de la gauche.\n\nBravo pour votre persévérance !",
+  "finalImage": "",
+  "steps": [
+    {
+      "id": 1,
+      "title": "L'Énigme du Sphinx",
+      "description": "Je suis toujours devant vous mais ne peut jamais être vu. Qui suis-je ?",
+      "type": "single_answer",
+      "image": "",
+      "hint": "Pensez au temps qui passe...",
+      "answers": ["l'avenir", "avenir", "le futur", "futur"]
+    },
+    {
+      "id": 2,
+      "title": "Le Code Secret",
+      "description": "Déchiffrez le code suivant : A=1, B=2, C=3...\n\n20-18-5-19-15-18",
+      "type": "cipher",
+      "image": "",
+      "hint": "Convertissez chaque nombre en lettre de l'alphabet",
+      "answers": ["tresor", "trésor"]
+    },
+    {
+      "id": 3,
+      "title": "Les Quatre Éléments",
+      "description": "Trouvez les quatre éléments classiques de la nature.",
+      "type": "multiple_answers",
+      "image": "",
+      "hint": "Terre, et ensuite ?",
+      "answers": ["terre", "eau", "feu", "air"],
+      "fieldLabels": ["Élément 1", "Élément 2", "Élément 3", "Élément 4"]
+    },
+    {
+      "id": 4,
+      "title": "Associations Historiques",
+      "description": "Associez chaque personnage à son époque.",
+      "type": "matching",
+      "image": "",
+      "hint": "Réfléchissez à l'histoire de France",
+      "pairs": [
+        { "left": "Napoléon", "right": "19ème siècle" },
+        { "left": "Louis XIV", "right": "17ème siècle" },
+        { "left": "Charlemagne", "right": "9ème siècle" },
+        { "left": "De Gaulle", "right": "20ème siècle" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Question de Culture",
+      "description": "Quelle est la capitale de l'Australie ?",
+      "type": "qcm",
+      "image": "",
+      "hint": "Ce n'est pas Sydney !",
+      "choices": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+      "answers": ["Canberra"]
+    },
+    {
+      "id": 6,
+      "title": "La Suite Logique",
+      "description": "Remettez ces planètes dans l'ordre, de la plus proche à la plus éloignée du Soleil.",
+      "type": "order",
+      "image": "",
+      "hint": "Mon Vieux Tu M'as Jeté Sur Une Nouvelle...",
+      "correctOrder": ["Mercure", "Vénus", "Terre", "Mars"]
+    },
+    {
+      "id": 7,
+      "title": "Le Rébus",
+      "description": "Résolvez cette devinette :\n\nJe commence la nuit et je finis le matin. Qui suis-je ?",
+      "type": "single_answer",
+      "image": "",
+      "hint": "Regardez les lettres...",
+      "answers": ["la lettre n", "lettre n", "n", "le n"]
+    },
+    {
+      "id": 8,
+      "title": "Le Coffre-Fort",
+      "description": "Trouvez le code à 4 chiffres.\n\nIndice 1 : Le premier chiffre est le nombre de côtés d'un triangle.\nIndice 2 : Le deuxième chiffre est le nombre de pattes d'une araignée divisé par 2.\nIndice 3 : Le troisième chiffre est le nombre de jours dans une semaine.\nIndice 4 : Le quatrième chiffre est le nombre de doigts sur une main moins 4.",
+      "type": "cipher",
+      "image": "",
+      "hint": "Faites les calculs un par un",
+      "answers": ["3471"]
+    },
+    {
+      "id": 9,
+      "title": "Les Explorateurs",
+      "description": "Associez chaque explorateur à sa découverte.",
+      "type": "matching",
+      "image": "",
+      "hint": "Pensez aux grandes découvertes",
+      "pairs": [
+        { "left": "Christophe Colomb", "right": "Amérique" },
+        { "left": "Marco Polo", "right": "Route de la soie" },
+        { "left": "Magellan", "right": "Tour du monde" }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "L'Ultime Énigme",
+      "description": "Pour obtenir le dernier indice, résolvez cette énigme :\n\nPlus je sèche, plus je suis mouillée. Qui suis-je ?",
+      "type": "single_answer",
+      "image": "",
+      "hint": "On l'utilise après la douche...",
+      "answers": ["une serviette", "serviette", "la serviette"]
+    }
+  ]
+}

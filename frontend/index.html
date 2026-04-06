@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chasse au Trésor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+  <div id="app">
+    <!-- Background decoration -->
+    <div class="bg-decoration"></div>
+
+    <!-- ==================== HOME SCREEN ==================== -->
+    <section id="screen-home" class="screen active">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-icon">🗺️</div>
+          <h1 id="game-title">Chasse au Trésor</h1>
+          <p id="game-subtitle" class="subtitle">Résolvez les énigmes pour découvrir le trésor !</p>
+        </div>
+
+        <div class="card card-form">
+          <h2>Commencer l'aventure</h2>
+
+          <div class="tab-group">
+            <button class="tab active" data-tab="create">Créer une équipe</button>
+            <button class="tab" data-tab="resume">Reprendre</button>
+          </div>
+
+          <div id="tab-create" class="tab-content active">
+            <div class="form-group">
+              <label for="team-name">Nom de l'équipe</label>
+              <input type="text" id="team-name" placeholder="Les Aventuriers" maxlength="50" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="team-members">Membres <span class="optional">(optionnel)</span></label>
+              <input type="text" id="team-members" placeholder="Alice, Bob, Charlie" autocomplete="off">
+            </div>
+            <button id="btn-create" class="btn btn-primary btn-lg">
+              <span>🚀 C'est parti !</span>
+            </button>
+          </div>
+
+          <div id="tab-resume" class="tab-content">
+            <div class="form-group">
+              <label for="resume-name">Nom de l'équipe</label>
+              <input type="text" id="resume-name" placeholder="Entrez votre nom d'équipe" maxlength="50" autocomplete="off">
+            </div>
+            <button id="btn-resume" class="btn btn-secondary btn-lg">
+              <span>🔄 Reprendre la partie</span>
+            </button>
+          </div>
+
+          <div id="home-error" class="error-message hidden"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP SCREEN ==================== -->
+    <section id="screen-step" class="screen">
+      <div class="container">
+        <!-- Progress bar -->
+        <div class="progress-wrapper">
+          <div class="progress-info">
+            <span id="team-display" class="team-badge">🏴‍☠️ Équipe</span>
+            <span id="step-counter" class="step-counter">1/10</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Step card -->
+        <div class="card card-step">
+          <div class="step-header">
+            <span id="step-badge" class="step-badge">Étape 1</span>
+            <span id="step-type-badge" class="type-badge"></span>
+          </div>
+
+          <h2 id="step-title" class="step-title">Titre de l'étape</h2>
+
+          <div id="step-image-container" class="step-image-container hidden">
+            <img id="step-image" src="" alt="Image de l'étape">
+          </div>
+
+          <div id="step-description" class="step-description">
+            Description de l'étape...
+          </div>
+
+          <!-- Dynamic answer area -->
+          <div id="answer-area" class="answer-area">
+            <!-- Filled dynamically by JS -->
+          </div>
+
+          <!-- Hint -->
+          <div id="hint-area" class="hint-area hidden">
+            <button id="btn-hint" class="btn btn-hint" onclick="toggleHint()">
+              💡 Voir l'indice
+            </button>
+            <div id="hint-content" class="hint-content hidden">
+              <p id="hint-text"></p>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button id="btn-submit" class="btn btn-primary btn-lg btn-submit">
+            ✅ Valider
+          </button>
+
+          <!-- Feedback -->
+          <div id="feedback" class="feedback hidden">
+            <div id="feedback-icon" class="feedback-icon"></div>
+            <p id="feedback-message"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FINAL SCREEN ==================== -->
+    <section id="screen-final" class="screen">
+      <div class="container">
+        <div class="card card-final">
+          <div class="confetti-container" id="confetti"></div>
+          <div class="final-icon">🏆</div>
+          <h1>Félicitations !</h1>
+          <h2 id="final-team-name">Équipe</h2>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">⏱️</div>
+              <div class="stat-value" id="final-duration">--</div>
+              <div class="stat-label">Temps total</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-value" id="final-attempts">--</div>
+              <div class="stat-label">Tentatives</div>
+            </div>
+          </div>
+
+          <div class="final-message-box">
+            <h3>🗝️ Le dernier indice</h3>
+            <p id="final-message"></p>
+            <div id="final-image-container" class="hidden">
+              <img id="final-image" src="" alt="Image finale">
+            </div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="location.reload()">
+            🏠 Retour à l'accueil
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LOADING OVERLAY ==================== -->
+    <div id="loading" class="loading-overlay hidden">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
