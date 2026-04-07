@@ -291,7 +291,6 @@ async function loadStep(stepNum) {
     state.selectedQcm = [];
 
     // Update progress
-    document.getElementById('team-display').textContent = '🏴‍☠️ ' + state.teamName;
     document.getElementById('step-counter').textContent = `${stepNum}/${state.totalSteps}`;
     document.getElementById('progress-fill').style.width =
       `${((stepNum - 1) / state.totalSteps) * 100}%`;
