@@ -559,6 +559,39 @@ input::placeholder {
   font-weight: 600;
 }
 
+/* Multi-questions type */
+.mq-block {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.mq-description {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.mq-block input {
+  margin-top: 6px;
+}
+
+.btn-hint-mini {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  margin-bottom: 6px;
+}
+
+.mq-block .hint-content {
+  margin-top: 6px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+}
+
 /* QCM type */
 .qcm-grid {
   display: flex;

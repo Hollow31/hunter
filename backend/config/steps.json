@@ -34,64 +34,41 @@
       "id": 3,
       "title": "Star Wars",
       "description": "De ces descriptions énigmatiques, retrouvez les films/séries",
-      "type": "multiple_answers",
-      "image": "../frontend/images/yoda.jpg",
-      "steps": [
+      "type": "multi_questions",
+      "image": "/images/yoda.jpg",
+      "hint": "",
+      "questions": [
         {
-        "id": 3.1,
-        "title": "3.1",
-        "description": "Femmes désespérées, elles sont.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "Dans une rue calme, secrets nombreux il y'a.",
-        "answers": ["Desperate Housewives", "desperate housewives"]
+          "description": "Femmes désespérées, elles sont.",
+          "hint": "Dans une rue calme, secrets nombreux il y'a.",
+          "answers": ["Desperate Housewives", "desperate housewives"]
         },
         {
-        "id": 3.2,
-        "title": "3.2",
-        "description": "Plus dangereux que les morts, parfois les vivants sont.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "Marcher sans fin, les morts le font.",
-        "answers": ["The Walking Dead", "the walking dead", "Walking Dead", "walking dead"]
+          "description": "Plus dangereux que les morts, parfois les vivants sont.",
+          "hint": "Marcher sans fin, les morts le font.",
+          "answers": ["The Walking Dead", "the walking dead", "Walking Dead", "walking dead"]
         },
         {
-        "id": 3.3,
-        "title": "3.3",
-        "description": "Conseils d'amour, donner aux autres il fait.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "Au lycée, sujets gênants mais importants abordés sont.",
-        "answers": ["Sex Education", "sex education", "Sex education"]
+          "description": "Conseils d'amour, donner aux autres il fait.",
+          "hint": "Au lycée, sujets gênants mais importants abordés sont.",
+          "answers": ["Sex Education", "sex education", "Sex education"]
         },
         {
-        "id": 3.4,
-        "title": "3.4",
-        "description": "Une dernière question, avec son imper toujours il a.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "Déjà coupable connu, mais prouver il doit.",
-        "answers": ["Columbo", "columbo"]
+          "description": "Une dernière question, avec son imper toujours il a.",
+          "hint": "Déjà coupable connu, mais prouver il doit.",
+          "answers": ["Columbo", "columbo"]
         },
         {
-        "id": 3.5,
-        "title": "3.5",
-        "description": "Ordre et précisions, dans le sang il trouve.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "Meutrier et justicier il est, dans les laboratoires il travaille.",
-        "answers": ["Dexter", "dexter"]
+          "description": "Ordre et précisions, dans le sang il trouve.",
+          "hint": "Meutrier et justicier il est, dans les laboratoires il travaille.",
+          "answers": ["Dexter", "dexter"]
         },
         {
-        "id": 3.6,
-        "title": "3.6",
-        "description": "Entre amour, stress et chirurgie... leurs vies mélangées sont.",
-        "type": "single_answer",
-        "image": "",
-        "hint": "26 saisons, 17 ans d'histoire, des personnages inoubliables.",
-        "answers": ["Grey's Anatomy", "grey's anatomy", "Greys Anatomy", "greys anatomy"]
+          "description": "Entre amour, stress et chirurgie... leurs vies mélangées sont.",
+          "hint": "26 saisons, 17 ans d'histoire, des personnages inoubliables.",
+          "answers": ["Grey's Anatomy", "grey's anatomy", "Greys Anatomy", "greys anatomy"]
         }
-    ]
+      ]
     },
     {
       "id": 4,

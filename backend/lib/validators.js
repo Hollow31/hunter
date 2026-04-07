@@ -140,6 +140,37 @@ const validators = {
    */
   puzzle(userAnswer, step) {
     return validators.single_answer(userAnswer, step);
+  },
+
+  /**
+   * multi_questions: multiple sub-questions each with their own answer
+   * config.questions: [{ description, hint, answers: string[] }]
+   * userAnswer: string[]  (one answer per sub-question, in order)
+   */
+  multi_questions(userAnswer, step) {
+    if (!Array.isArray(userAnswer)) {
+      return { valid: false, message: 'Format de réponse invalide.' };
+    }
+    const questions = step.questions;
+    if (userAnswer.length !== questions.length) {
+      return { valid: false, message: `Il faut ${questions.length} réponse(s).` };
+    }
+
+    const results = questions.map((q, i) => {
+      const input = normalize(userAnswer[i]);
+      const accepted = q.answers.map(a => normalize(a));
+      return accepted.includes(input);
+    });
+
+    const correctCount = results.filter(Boolean).length;
+    const valid = correctCount === questions.length;
+
+    return {
+      valid,
+      message: valid
+        ? 'Toutes les réponses sont correctes !'
+        : `${correctCount}/${questions.length} réponses correctes.`
+    };
   }
 };
 

@@ -20,6 +20,7 @@ router.get('/:teamId', (req, res) => {
   const typeIcons = {
     single_answer: '✏️',
     multiple_answers: '📝',
+    multi_questions: '📝',
     matching: '🔗',
     cipher: '🔐',
     order: '📋',
@@ -92,6 +93,12 @@ router.get('/:teamId/:stepNumber', (req, res) => {
   if (step.type === 'multiple_answers') {
     safeStep.fieldCount = step.answers.length;
     safeStep.fieldLabels = step.fieldLabels || null;
+  }
+  if (step.type === 'multi_questions') {
+    safeStep.questions = step.questions.map(q => ({
+      description: q.description,
+      hint: q.hint || null
+    }));
   }
 
   res.json(safeStep);

@@ -305,6 +305,7 @@ async function loadStep(stepNum) {
     const typeLabels = {
       single_answer: '✏️ Réponse libre',
       multiple_answers: '📝 Réponses multiples',
+      multi_questions: '📝 Multi-questions',
       matching: '🔗 Associations',
       cipher: '🔐 Code secret',
       order: '📋 Ordre',
@@ -387,6 +388,20 @@ function buildAnswerArea(step) {
         `;
       }
       area.innerHTML = html;
+      break;
+
+    case 'multi_questions':
+      let mqHtml = '';
+      step.questions.forEach((q, i) => {
+        mqHtml += `
+          <div class="mq-block">
+            <div class="mq-description">${escapeHtml(q.description)}</div>
+            ${q.hint ? `<button class="btn btn-hint btn-hint-mini" onclick="toggleMqHint(${i})">💡</button><div id="mq-hint-${i}" class="hint-content hidden"><p>${escapeHtml(q.hint)}</p></div>` : ''}
+            <input type="text" class="multi-question-answer" data-index="${i}" placeholder="Réponse..." autocomplete="off">
+          </div>
+        `;
+      });
+      area.innerHTML = mqHtml;
       break;
 
     case 'matching':
@@ -589,6 +604,17 @@ async function submitAnswer() {
       }
       break;
 
+    case 'multi_questions':
+      answer = [];
+      document.querySelectorAll('.multi-question-answer').forEach(input => {
+        answer.push(input.value.trim());
+      });
+      if (answer.some(a => !a)) {
+        showFeedback(false, 'Veuillez remplir toutes les réponses.');
+        return;
+      }
+      break;
+
     case 'matching':
       answer = {};
       let allFilled = true;
@@ -670,6 +696,12 @@ function showFeedback(success, message) {
 
 function hideFeedback() {
   document.getElementById('feedback').classList.add('hidden');
+}
+
+// ---- Multi-question hints ----
+function toggleMqHint(index) {
+  const el = document.getElementById('mq-hint-' + index);
+  if (el) el.classList.toggle('hidden');
 }
 
 // ---- Hint ----
@@ -955,6 +987,12 @@ async function loadAdminAnswers() {
               ? `<code style="background: rgba(39,174,96,0.2);">${escapeHtml(c)} ✓</code>`
               : `<code>${escapeHtml(c)}</code>`
           ).join(', ')}`;
+          break;
+
+        case 'multi_questions':
+          answerHtml = `<strong>Questions :</strong><ul class="answer-list">${step.questions.map((q, i) =>
+            `<li>${escapeHtml(q.description)}<br>→ ${q.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(', ')}</li>`
+          ).join('')}</ul>`;
           break;
       }
 

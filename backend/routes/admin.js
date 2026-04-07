@@ -69,6 +69,7 @@ router.get('/steps', requireAdmin, (req, res) => {
     pairs: step.pairs || null,
     correctOrder: step.correctOrder || null,
     choices: step.choices || null,
+    questions: step.questions || null,
     hint: step.hint || null
   }));
 
