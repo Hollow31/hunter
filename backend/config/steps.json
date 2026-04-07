@@ -1,7 +1,7 @@
 {
   "title": "La Grande Chasse au Trésor",
   "subtitle": "Résolvez les 10 énigmes pour découvrir le trésor !",
-  "adminPassword": "hunter2024",
+  "adminPassword": "test",
   "theme": {
     "primaryColor": "#e67e22",
     "secondaryColor": "#2c3e50",
@@ -14,16 +14,16 @@
   "steps": [
     {
       "id": 1,
-      "title": "L'Énigme du Sphinx",
-      "description": "Je suis toujours devant vous mais ne peut jamais être vu. Qui suis-je ?",
+      "title": "Games Of Thrones",
+      "description": "Orqjxh ylh d od edqdqd",
       "type": "single_answer",
       "image": "",
-      "hint": "Pensez au temps qui passe...",
-      "answers": ["l'avenir", "avenir", "le futur", "futur"]
+      "hint": "Il s'agit d'une phrase codée avec un décalage de 3 lettres dans l'alphabet",
+      "answers": ["Longue vie a la banana", "longue vie a la banana"]
     },
     {
       "id": 2,
-      "title": "Le Code Secret",
+      "title": "La casa de Papel",
       "description": "Déchiffrez le code suivant : A=1, B=2, C=3...\n\n20-18-5-19-15-18",
       "type": "cipher",
       "image": "",
@@ -32,31 +32,89 @@
     },
     {
       "id": 3,
-      "title": "Les Quatre Éléments",
-      "description": "Trouvez les quatre éléments classiques de la nature.",
+      "title": "Star Wars",
+      "description": "De ces descriptions énigmatiques, retrouvez les films/séries",
       "type": "multiple_answers",
-      "image": "",
-      "hint": "Terre, et ensuite ?",
-      "answers": ["terre", "eau", "feu", "air"],
-      "fieldLabels": ["Élément 1", "Élément 2", "Élément 3", "Élément 4"]
+      "image": "../frontend/images/yoda.jpg",
+      "steps": [
+        {
+        "id": 3.1,
+        "title": "3.1",
+        "description": "Femmes désespérées, elles sont.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "Dans une rue calme, secrets nombreux il y'a.",
+        "answers": ["Desperate Housewives", "desperate housewives"]
+        },
+        {
+        "id": 3.2,
+        "title": "3.2",
+        "description": "Plus dangereux que les morts, parfois les vivants sont.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "Marcher sans fin, les morts le font.",
+        "answers": ["The Walking Dead", "the walking dead", "Walking Dead", "walking dead"]
+        },
+        {
+        "id": 3.3,
+        "title": "3.3",
+        "description": "Conseils d'amour, donner aux autres il fait.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "Au lycée, sujets gênants mais importants abordés sont.",
+        "answers": ["Sex Education", "sex education", "Sex education"]
+        },
+        {
+        "id": 3.4,
+        "title": "3.4",
+        "description": "Une dernière question, avec son imper toujours il a.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "Déjà coupable connu, mais prouver il doit.",
+        "answers": ["Columbo", "columbo"]
+        },
+        {
+        "id": 3.5,
+        "title": "3.5",
+        "description": "Ordre et précisions, dans le sang il trouve.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "Meutrier et justicier il est, dans les laboratoires il travaille.",
+        "answers": ["Dexter", "dexter"]
+        },
+        {
+        "id": 3.6,
+        "title": "3.6",
+        "description": "Entre amour, stress et chirurgie... leurs vies mélangées sont.",
+        "type": "single_answer",
+        "image": "",
+        "hint": "26 saisons, 17 ans d'histoire, des personnages inoubliables.",
+        "answers": ["Grey's Anatomy", "grey's anatomy", "Greys Anatomy", "greys anatomy"]
+        }
+    ]
     },
     {
       "id": 4,
-      "title": "Associations Historiques",
-      "description": "Associez chaque personnage à son époque.",
+      "title": "Titanic",
+      "description": "Associez chaque citation à son film/série.",
       "type": "matching",
       "image": "",
-      "hint": "Réfléchissez à l'histoire de France",
+      "hint": "Réfléchissez aux films et séries célèbres",
       "pairs": [
-        { "left": "Napoléon", "right": "19ème siècle" },
-        { "left": "Louis XIV", "right": "17ème siècle" },
-        { "left": "Charlemagne", "right": "9ème siècle" },
-        { "left": "De Gaulle", "right": "20ème siècle" }
+        { "left": "On ne laisse pas Bébé dans un coin", "right": "Dirty dancing" },
+        { "left": "Hasta la vista, baby XIV", "right": "Terminator" },
+        { "left": "La vie c'est comme une boîte de chocolats", "right": "Forrest Gump" },
+        { "left": "Pas de bras, pas de chocolat", "right": "Intouchables" },
+        { "left": "Il va faire tout noir", "right": "RRrrrrrr" },
+        { "left": "Vers l'infini et au-delà", "right": "Toy Story" },
+        { "left": "Je casse", "right": "Brice de Nice" },
+        { "left": "Attrapez-les tous", "right": "Pokemon" },
+        { "left": "Je suis le roi du monde", "right": "Titanic" }
       ]
     },
     {
       "id": 5,
-      "title": "Question de Culture",
+      "title": "Friends",
       "description": "Quelle est la capitale de l'Australie ?",
       "type": "qcm",
       "image": "",
@@ -66,47 +124,43 @@
     },
     {
       "id": 6,
-      "title": "La Suite Logique",
-      "description": "Remettez ces planètes dans l'ordre, de la plus proche à la plus éloignée du Soleil.",
+      "title": "Les visiteurs",
+      "description": "Remettez ces films dans le bon ordre de sortie.",
       "type": "order",
       "image": "",
-      "hint": "Mon Vieux Tu M'as Jeté Sur Une Nouvelle...",
-      "correctOrder": ["Mercure", "Vénus", "Terre", "Mars"]
+      "hint": "Pensez à l'époque de chaque film et à leur style visuel",
+      "correctOrder": ["Un p'tit truc en plus", "Un indien dans la ville", "Les visiteurs", "The Dark Night", "Le dîner de cons", "Qu'est-ce qu'on a fait au bon Dieu ?"]
     },
     {
       "id": 7,
-      "title": "Le Rébus",
-      "description": "Résolvez cette devinette :\n\nJe commence la nuit et je finis le matin. Qui suis-je ?",
+      "title": "La petite sirène",
+      "description": "Que voyez-vous ?",
       "type": "single_answer",
       "image": "",
-      "hint": "Regardez les lettres...",
-      "answers": ["la lettre n", "lettre n", "n", "le n"]
+      "hint": "Oh, un poisson !",
+      "answers": ["Tourniflette", "tourniflette"]
     },
     {
       "id": 8,
-      "title": "Le Coffre-Fort",
-      "description": "Trouvez le code à 4 chiffres.\n\nIndice 1 : Le premier chiffre est le nombre de côtés d'un triangle.\nIndice 2 : Le deuxième chiffre est le nombre de pattes d'une araignée divisé par 2.\nIndice 3 : Le troisième chiffre est le nombre de jours dans une semaine.\nIndice 4 : Le quatrième chiffre est le nombre de doigts sur une main moins 4.",
+      "title": "Harry Potter",
+      "description": "Trouvez le code à 4 chiffres.\n\nIndice 1 : Le premier chiffre est le nombre de côtés d'un triangle.\nIndice 2 : Le deuxième chiffre est le nombre de pattes d'une araignée divisé par 2.\nIndice 3 : Le troisième chiffre est le nombre de jours dans une semaine.",
       "type": "cipher",
       "image": "",
-      "hint": "Faites les calculs un par un",
+      "hint": "Santé !",
       "answers": ["3471"]
     },
     {
       "id": 9,
-      "title": "Les Explorateurs",
+      "title": "Stranger Things",
       "description": "Associez chaque explorateur à sa découverte.",
-      "type": "matching",
+      "type": "single_answer",
       "image": "",
       "hint": "Pensez aux grandes découvertes",
-      "pairs": [
-        { "left": "Christophe Colomb", "right": "Amérique" },
-        { "left": "Marco Polo", "right": "Route de la soie" },
-        { "left": "Magellan", "right": "Tour du monde" }
-      ]
+      "answers": ["je ne sais pas encore"]
     },
     {
       "id": 10,
-      "title": "L'Ultime Énigme",
+      "title": "James Bond",
       "description": "Pour obtenir le dernier indice, résolvez cette énigme :\n\nPlus je sèche, plus je suis mouillée. Qui suis-je ?",
       "type": "single_answer",
       "image": "",
