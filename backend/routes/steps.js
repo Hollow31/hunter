@@ -45,6 +45,39 @@ router.get('/:teamId', (req, res) => {
   });
 });
 
+// Get final page data (only if all steps completed)
+// MUST be before /:teamId/:stepNumber to avoid "final" being matched as a step number
+router.get('/:teamId/final', (req, res) => {
+  const { teamId } = req.params;
+
+  const teams = readTeams();
+  const team = teams.find(t => t.id === teamId);
+
+  if (!team) {
+    return res.status(404).json({ error: 'Équipe non trouvée.' });
+  }
+
+  const config = readConfig();
+
+  if (team.completedSteps.length < config.steps.length) {
+    return res.status(403).json({ error: 'Toutes les étapes ne sont pas encore validées.' });
+  }
+
+  const startTime = new Date(team.startedAt);
+  const endTime = new Date(team.completedAt);
+  const duration = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration % 60;
+
+  res.json({
+    teamName: team.name,
+    finalMessage: config.finalMessage,
+    finalImage: config.finalImage || null,
+    duration: `${minutes}min ${seconds}s`,
+    totalAttempts: Object.values(team.attempts).reduce((a, b) => a + b, 0)
+  });
+});
+
 // Get step info for a team (without answers!)
 router.get('/:teamId/:stepNumber', (req, res) => {
   const { teamId, stepNumber } = req.params;
@@ -59,7 +92,7 @@ router.get('/:teamId/:stepNumber', (req, res) => {
 
   const config = readConfig();
 
-  if (stepNum < 1 || stepNum > config.steps.length) {
+  if (isNaN(stepNum) || stepNum < 1 || stepNum > config.steps.length) {
     return res.status(400).json({ error: 'Numéro d\'étape invalide.' });
   }
 
@@ -120,7 +153,7 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
   const team = teams[teamIndex];
   const config = readConfig();
 
-  if (stepNum < 1 || stepNum > config.steps.length) {
+  if (isNaN(stepNum) || stepNum < 1 || stepNum > config.steps.length) {
     return res.status(400).json({ error: 'Numéro d\'étape invalide.' });
   }
 
@@ -174,38 +207,6 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
     valid: false,
     message: result.message,
     attempts: team.attempts[stepNum]
-  });
-});
-
-// Get final page data (only if all steps completed)
-router.get('/:teamId/final', (req, res) => {
-  const { teamId } = req.params;
-
-  const teams = readTeams();
-  const team = teams.find(t => t.id === teamId);
-
-  if (!team) {
-    return res.status(404).json({ error: 'Équipe non trouvée.' });
-  }
-
-  const config = readConfig();
-
-  if (team.completedSteps.length < config.steps.length) {
-    return res.status(403).json({ error: 'Toutes les étapes ne sont pas encore validées.' });
-  }
-
-  const startTime = new Date(team.startedAt);
-  const endTime = new Date(team.completedAt);
-  const duration = Math.floor((endTime - startTime) / 1000);
-  const minutes = Math.floor(duration / 60);
-  const seconds = duration % 60;
-
-  res.json({
-    teamName: team.name,
-    finalMessage: config.finalMessage,
-    finalImage: config.finalImage || null,
-    duration: `${minutes}min ${seconds}s`,
-    totalAttempts: Object.values(team.attempts).reduce((a, b) => a + b, 0)
   });
 });
 
