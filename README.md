@@ -7,7 +7,7 @@ Application web moderne pour gérer une chasse au trésor par équipes. Interfac
 ## 🎯 Fonctionnalités
 
 - **10 étapes configurables** avec différents types d'épreuves
-- **7 types d'épreuves** : réponse libre, réponses multiples, associations, code secret, remise en ordre, QCM, énigme
+- **9 types d'épreuves** : réponse libre, réponses multiples, multi-questions, associations, code secret, remise en ordre, QCM, énigme, upload de photo
 - **Gestion d'équipes** : création, reprise de partie, sauvegarde automatique
 - **Page finale** avec message de victoire, statistiques et dernier indice
 - **Interface moderne** : dark mode, responsive, mobile-first
@@ -224,6 +224,45 @@ Identique à `single_answer` mais avec une présentation différente (icône �
   "answers": ["serviette", "une serviette"]
 }
 ```
+
+#### 8. `multi_questions` — Plusieurs questions dans une étape
+Chaque sous-question a ses propres réponses et indices optionnels.
+
+```json
+{
+  "id": 8,
+  "title": "Quiz multi",
+  "description": "Retrouvez les bonnes réponses",
+  "type": "multi_questions",
+  "questions": [
+    {
+      "description": "Capitale de la France ?",
+      "hint": "La ville lumière",
+      "answers": ["Paris", "paris"]
+    },
+    {
+      "description": "Capitale de l'Espagne ?",
+      "answers": ["Madrid", "madrid"]
+    }
+  ]
+}
+```
+
+#### 9. `photo_upload` — Upload de photo
+L'équipe doit prendre/charger une photo pour valider l'étape. La photo est sauvegardée sur le serveur dans `backend/uploads/team-photos/`. Pas de "bonne réponse" — l'upload suffit à valider.
+
+```json
+{
+  "id": 9,
+  "title": "Selfie d'équipe",
+  "description": "Prenez un selfie de toute l'équipe devant l'indice !",
+  "type": "photo_upload",
+  "image": "",
+  "hint": "Souriez !"
+}
+```
+
+Les photos uploadées sont accessibles dans `backend/uploads/team-photos/` et nommées `<nom-equipe>_step<N>.jpg`. Taille max : 10 Mo. Formats : JPEG, PNG, WebP, GIF.
 
 ### Ajouter des images
 

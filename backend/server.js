@@ -8,6 +8,7 @@ const fs = require('fs');
 const teamsRouter = require('./routes/teams');
 const stepsRouter = require('./routes/steps');
 const adminRouter = require('./routes/admin');
+const uploadRouter = require('./routes/upload');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -52,6 +53,7 @@ if (!fs.existsSync(uploadsDir)) {
 app.use('/api/teams', teamsRouter);
 app.use('/api/steps', stepsRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/upload', uploadRouter);
 
 // SPA fallback - serve index.html for all non-API routes
 app.get('*', (req, res) => {

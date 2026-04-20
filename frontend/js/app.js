@@ -309,7 +309,8 @@ async function loadStep(stepNum) {
       cipher: '🔐 Code secret',
       order: '📋 Ordre',
       qcm: '🎯 QCM',
-      puzzle: '🧩 Énigme'
+      puzzle: '🧩 Énigme',
+      photo_upload: '📷 Photo'
     };
     document.getElementById('step-type-badge').textContent = typeLabels[step.type] || step.type;
 
@@ -476,6 +477,43 @@ function buildAnswerArea(step) {
         });
       });
       break;
+
+    case 'photo_upload':
+      area.innerHTML = `
+        <div class="photo-upload-area">
+          <label class="photo-upload-label" id="photo-drop-zone">
+            <input type="file" id="photo-input" accept="image/*" capture="environment" hidden>
+            <div class="photo-upload-icon">📷</div>
+            <div class="photo-upload-text">Cliquez ou déposez une photo ici</div>
+            <div class="photo-upload-hint">JPEG, PNG, WebP — max 10 Mo</div>
+          </label>
+          <div id="photo-preview-container" class="photo-preview-container hidden">
+            <img id="photo-preview" src="" alt="Aperçu">
+            <button class="btn btn-back btn-sm" onclick="clearPhotoPreview()">✕ Changer</button>
+          </div>
+        </div>
+      `;
+      // File input handler
+      setTimeout(() => {
+        const input = document.getElementById('photo-input');
+        const dropZone = document.getElementById('photo-drop-zone');
+        if (input) {
+          input.addEventListener('change', handlePhotoSelect);
+        }
+        if (dropZone) {
+          dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-active'); });
+          dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-active'));
+          dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-active');
+            if (e.dataTransfer.files.length > 0) {
+              document.getElementById('photo-input').files = e.dataTransfer.files;
+              handlePhotoSelect({ target: { files: e.dataTransfer.files } });
+            }
+          });
+        }
+      }, 100);
+      break;
   }
 }
 
@@ -641,6 +679,11 @@ async function submitAnswer() {
       }
       answer = step.multiSelect ? state.selectedQcm : state.selectedQcm[0];
       break;
+
+    case 'photo_upload':
+      // Photo upload uses a separate flow
+      await submitPhotoUpload();
+      return;
   }
 
   try {
@@ -673,6 +716,88 @@ async function submitAnswer() {
     } else {
       showFeedback(false, result.message);
       document.getElementById('btn-submit').disabled = false;
+    }
+  } catch (e) {
+    showFeedback(false, e.message);
+    document.getElementById('btn-submit').disabled = false;
+  } finally {
+    hideLoading();
+  }
+}
+
+// ---- Photo Upload Helpers ----
+let selectedPhotoFile = null;
+
+function handlePhotoSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    showFeedback(false, 'Le fichier doit être une image.');
+    return;
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    showFeedback(false, 'La photo est trop volumineuse (max 10 Mo).');
+    return;
+  }
+
+  selectedPhotoFile = file;
+
+  // Show preview
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    document.getElementById('photo-preview').src = ev.target.result;
+    document.getElementById('photo-preview-container').classList.remove('hidden');
+    document.getElementById('photo-drop-zone').classList.add('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPhotoPreview() {
+  selectedPhotoFile = null;
+  document.getElementById('photo-preview-container').classList.add('hidden');
+  document.getElementById('photo-drop-zone').classList.remove('hidden');
+  document.getElementById('photo-input').value = '';
+}
+
+async function submitPhotoUpload() {
+  if (!selectedPhotoFile) {
+    showFeedback(false, 'Veuillez sélectionner une photo.');
+    return;
+  }
+
+  try {
+    showLoading();
+    document.getElementById('btn-submit').disabled = true;
+
+    const arrayBuffer = await selectedPhotoFile.arrayBuffer();
+
+    const resp = await fetch(
+      `${API}/upload/${encodeURIComponent(state.teamId)}/${state.currentStep}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': selectedPhotoFile.type },
+        body: arrayBuffer
+      }
+    );
+
+    const result = await resp.json();
+    if (!resp.ok) {
+      throw new Error(result.error || 'Erreur serveur');
+    }
+
+    showFeedback(true, result.message);
+    selectedPhotoFile = null;
+
+    if (result.isFinished) {
+      setTimeout(async () => {
+        showScreen('final');
+        await loadFinalScreen();
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        goToHub();
+      }, 2000);
     }
   } catch (e) {
     showFeedback(false, e.message);
@@ -992,6 +1117,10 @@ async function loadAdminAnswers() {
           answerHtml = `<strong>Questions :</strong><ul class="answer-list">${step.questions.map((q, i) =>
             `<li>${escapeHtml(q.description)}<br>→ ${q.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(', ')}</li>`
           ).join('')}</ul>`;
+          break;
+
+        case 'photo_upload':
+          answerHtml = `<strong>📷 Upload de photo</strong> — L'équipe doit charger une photo pour valider.`;
           break;
       }
 

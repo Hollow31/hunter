@@ -25,7 +25,8 @@ router.get('/:teamId', (req, res) => {
     cipher: '🔐',
     order: '📋',
     qcm: '🎯',
-    puzzle: '🧩'
+    puzzle: '🧩',
+    photo_upload: '📷'
   };
 
   const stepsOverview = config.steps.map((step, i) => ({

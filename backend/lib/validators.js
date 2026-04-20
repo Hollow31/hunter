@@ -171,6 +171,14 @@ const validators = {
         ? 'Toutes les réponses sont correctes !'
         : `${correctCount}/${questions.length} réponses correctes.`
     };
+  },
+
+  /**
+   * photo_upload: team uploads a photo
+   * Validation is handled by the upload route, not here
+   */
+  photo_upload(userAnswer, step) {
+    return { valid: true, message: 'Photo validée !' };
   }
 };
 

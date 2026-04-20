@@ -674,6 +674,59 @@ input::placeholder {
   font-size: 1rem;
 }
 
+/* Photo Upload type */
+.photo-upload-area {
+  margin-bottom: 8px;
+}
+
+.photo-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.photo-upload-label:hover,
+.photo-upload-label.drag-active {
+  border-color: var(--primary);
+  background: rgba(230, 126, 34, 0.05);
+}
+
+.photo-upload-icon {
+  font-size: 3rem;
+}
+
+.photo-upload-text {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.photo-upload-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.photo-preview-container {
+  text-align: center;
+}
+
+.photo-preview-container img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
 /* ========================================
    Hint
    ======================================== */

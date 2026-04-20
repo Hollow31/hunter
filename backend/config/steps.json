@@ -15,11 +15,11 @@
     {
       "id": 1,
       "title": "Games Of Thrones",
-      "description": "Orqjxh ylh d od edqdqd",
+      "description": "XABIFKBI FP ZLJFKD",
       "type": "single_answer",
       "image": "",
-      "hint": "Il s'agit d'une phrase codée avec un décalage de 3 lettres dans l'alphabet",
-      "answers": ["Longue vie a la banana", "longue vie a la banana"]
+      "hint": "Phrase codée avec un décalage",
+      "answers": ["Adeline is coming", "adeline is coming"]
     },
     {
       "id": 2,
@@ -92,12 +92,10 @@
     {
       "id": 5,
       "title": "Friends",
-      "description": "Quelle est la capitale de l'Australie ?",
-      "type": "qcm",
+      "description": "Prenez un selfie de toute l'équipe !",
+      "type": "photo_upload",
       "image": "",
-      "hint": "Ce n'est pas Sydney !",
-      "choices": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-      "answers": ["Canberra"]
+      "hint": "Souriez !"
     },
     {
       "id": 6,
