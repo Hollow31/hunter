@@ -106,7 +106,7 @@
       "type": "order",
       "image": "",
       "hint": "Pensez à l'époque de chaque film et à leur style visuel",
-      "correctOrder": ["Un p'tit truc en plus", "Un indien dans la ville", "Les visiteurs", "The Dark Night", "Le dîner de cons", "Qu'est-ce qu'on a fait au bon Dieu ?"]
+      "correctOrder": ["Les visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Qu'est-ce qu'on a fait au bon Dieu ?", "Un p'tit truc en plus"]
     },
     {
       "id": 7,
