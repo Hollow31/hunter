@@ -50,7 +50,8 @@ router.get('/teams', requireAdmin, (req, res) => {
     startedAt: t.startedAt,
     completedAt: t.completedAt,
     attempts: t.attempts || {},
-    totalAttempts: Object.values(t.attempts || {}).reduce((a, b) => a + b, 0)
+    totalAttempts: Object.values(t.attempts || {}).reduce((a, b) => a + b, 0),
+    photos: t.photos || {}
   }));
 
   res.json(summary);

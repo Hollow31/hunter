@@ -1026,6 +1026,22 @@ async function loadAdminTeams() {
         return `<div class="admin-step-dot ${done ? 'done' : ''}">${i + 1}</div>`;
       }).join('');
 
+      const photosHtml = Object.keys(team.photos).length > 0
+        ? `<div class="admin-team-photos">
+            <div class="admin-detail-label">📷 Photos uploadées</div>
+            <div class="admin-photos-grid">
+              ${Object.entries(team.photos).map(([stepNum, url]) =>
+                `<div class="admin-photo-item">
+                  <a href="${escapeHtml(url)}" target="_blank">
+                    <img src="${escapeHtml(url)}" alt="Photo étape ${stepNum}" class="admin-photo-thumb">
+                  </a>
+                  <span class="admin-photo-label">Étape ${stepNum}</span>
+                </div>`
+              ).join('')}
+            </div>
+          </div>`
+        : '';
+
       return `
         <div class="admin-team-card ${isComplete ? 'completed' : ''}">
           <div class="admin-team-header">
@@ -1054,6 +1070,7 @@ async function loadAdminTeams() {
             </div>
           </div>
           <div class="admin-steps-progress">${stepDots}</div>
+          ${photosHtml}
           <div class="admin-team-actions">
             <button class="btn btn-danger btn-sm" onclick="deleteTeam('${team.id}', '${escapeHtml(team.name)}')">🗑️ Supprimer</button>
           </div>

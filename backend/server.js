@@ -20,7 +20,6 @@ app.use(helmet({
 }));
 
 app.use(cors());
-app.use(express.json({ limit: '1mb' }));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -30,6 +29,12 @@ const limiter = rateLimit({
   legacyHeaders: false
 });
 app.use('/api/', limiter);
+
+// Upload route BEFORE json parsing (uses express.raw() instead)
+app.use('/api/upload', uploadRouter);
+
+// JSON parsing for all other routes
+app.use(express.json({ limit: '1mb' }));
 
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
@@ -49,11 +54,16 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+// Ensure team-photos directory exists
+const teamPhotosDir = path.join(__dirname, 'uploads', 'team-photos');
+if (!fs.existsSync(teamPhotosDir)) {
+  fs.mkdirSync(teamPhotosDir, { recursive: true });
+}
+
 // API Routes
 app.use('/api/teams', teamsRouter);
 app.use('/api/steps', stepsRouter);
 app.use('/api/admin', adminRouter);
-app.use('/api/upload', uploadRouter);
 
 // SPA fallback - serve index.html for all non-API routes
 app.get('*', (req, res) => {
