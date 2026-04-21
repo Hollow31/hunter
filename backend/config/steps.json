@@ -33,14 +33,14 @@
     {
       "id": 3,
       "title": "Star Wars",
-      "description": "De ces descriptions énigmatiques, retrouvez les films/séries",
+      "description": "De ces descriptions énigmatiques, retrouvez les séries",
       "type": "multi_questions",
       "image": "/images/yoda.jpg",
       "hint": "",
       "questions": [
         {
-          "description": "Femmes désespérées, elles sont.",
-          "hint": "Dans une rue calme, secrets nombreux il y'a.",
+          "description": "Dans une rue calme, secrets nombreux il y'a.",
+          "hint": "Femmes désespérées, elles sont.",
           "answers": ["Desperate Housewives", "desperate housewives"]
         },
         {
@@ -49,9 +49,9 @@
           "answers": ["The Walking Dead", "the walking dead", "Walking Dead", "walking dead"]
         },
         {
-          "description": "Conseils d'amour, donner aux autres il fait.",
-          "hint": "Au lycée, sujets gênants mais importants abordés sont.",
-          "answers": ["Sex Education", "sex education", "Sex education"]
+          "description": "Au lycée, sujets gênants mais importants abordés sont.",
+          "hint": "Fils de thérapeute, il est. Adolescents et leurs problèmes, il traite.",
+          "answers": ["Sex Education", "sex education", "Sex education", "sex Education"]
         },
         {
           "description": "Une dernière question, avec son imper toujours il a.",
@@ -73,26 +73,67 @@
     {
       "id": 4,
       "title": "Titanic",
-      "description": "Associez chaque citation à son film/série.",
-      "type": "matching",
+      "description": "A quel film appartient chaque citation ?",
+      "type": "multi_questions",
       "image": "",
-      "hint": "Réfléchissez aux films et séries célèbres",
-      "pairs": [
-        { "left": "On ne laisse pas Bébé dans un coin", "right": "Dirty dancing" },
-        { "left": "Hasta la vista, baby XIV", "right": "Terminator" },
-        { "left": "La vie c'est comme une boîte de chocolats", "right": "Forrest Gump" },
-        { "left": "Pas de bras, pas de chocolat", "right": "Intouchables" },
-        { "left": "Il va faire tout noir", "right": "RRrrrrrr" },
-        { "left": "Vers l'infini et au-delà", "right": "Toy Story" },
-        { "left": "Je casse", "right": "Brice de Nice" },
-        { "left": "Attrapez-les tous", "right": "Pokemon" },
-        { "left": "Je suis le roi du monde", "right": "Titanic" }
+      "hint": "Réfléchissez aux films célèbres",
+      "questions": [
+        {
+          "description": "On ne laisse pas Bébé dans un coin",
+          "hint": "",
+          "answers": ["Dirty dancing", "dirty dancing"]
+        },
+        {
+          "description": "Hasta la vista, baby",
+          "hint": "",
+          "answers": ["Terminator", "terminator"]
+        },
+        {
+          "description": "La vie c'est comme une boîte de chocolats",
+          "hint": "",
+          "answers": ["Forrest Gump", "forrest gump", "Forrest gump", "forrest Gump"]
+        },
+        {
+          "description": "Pas de bras, pas de chocolat",
+          "hint": "",
+          "answers": ["Intouchables", "intouchables"]
+        },
+        {
+          "description": "C'est bon, ça !",
+          "hint": "",
+          "answers": ["La Grande Vadrouille", "la grande vadrouille"]
+        },
+        {
+          "description": "Il va faire tout noir",
+          "hint": "",
+          "answers": ["RRrrrrrr", "rrrrrrrr", "rrr", "RRR", "Rrr", "RrR", "rRr", "rRR", "Rrrr", "rrrr", "RRrr", "rrRR", "rrrrr !!!", "RRR !!!"]
+        },
+        {
+          "description": "Vers l'infini et au-delà",
+          "hint": "",
+          "answers": ["Toy Story", "toy story"]
+        },
+        {
+          "description": "Je casse",
+          "hint": "",
+          "answers": ["Brice de Nice", "brice de nice", "Brice de nice", "brice de Nice"]
+        },
+        {
+          "description": "Attrapez-les tous",
+          "hint": "",
+          "answers": ["Pokemon", "pokemon", "Pokemon le film", "pokemon le film"]
+        },
+        {
+          "description": "Je suis le roi du monde",
+          "hint": "",
+          "answers": ["Titanic", "titanic"]
+        }
       ]
     },
     {
       "id": 5,
       "title": "Friends",
-      "description": "Prenez un selfie de toute l'équipe !",
+      "description": "Prenez une photo la plus rigolote possible de toute l'équipe",
       "type": "photo_upload",
       "image": "",
       "hint": "Souriez !"
@@ -118,29 +159,28 @@
     {
       "id": 8,
       "title": "Harry Potter",
-      "description": "Trouvez le code à 4 chiffres.\n\nIndice 1 : Le premier chiffre est le nombre de côtés d'un triangle.\nIndice 2 : Le deuxième chiffre est le nombre de pattes d'une araignée divisé par 2.\nIndice 3 : Le troisième chiffre est le nombre de jours dans une semaine.",
-      "type": "cipher",
+      "description": "A vous de trouver l'indice, apprentis sorciers !",
+      "type": "single_answer",
       "image": "",
-      "hint": "Santé !",
-      "answers": ["3471"]
+      "hint": "Trouvez le mot magique.",
+      "answers": ["potion", "Potion"]
     },
     {
       "id": 9,
       "title": "Stranger Things",
-      "description": "Associez chaque explorateur à sa découverte.",
+      "description": "",
       "type": "single_answer",
       "image": "",
-      "hint": "Pensez aux grandes découvertes",
-      "answers": ["je ne sais pas encore"]
+      "hint": "à l'envers est la réponse",
+      "answers": ["Le monde de la quarantaine n'est pas loin", "le monde de la quarantaine n'est pas loin", "Le monde de la quarantaine n'est pas loin !", "le monde de la quarantaine n'est pas loin !"]
     },
     {
       "id": 10,
       "title": "James Bond",
-      "description": "Pour obtenir le dernier indice, résolvez cette énigme :\n\nPlus je sèche, plus je suis mouillée. Qui suis-je ?",
-      "type": "single_answer",
+      "description": "Soyez ingénieux, utilisez votre créativité, environnement pour révéler le code de cet agent",
+      "type": "photo_upload",
       "image": "",
-      "hint": "On l'utilise après la douche...",
-      "answers": ["une serviette", "serviette", "la serviette"]
+      "hint": "Soyez créatifs !"
     }
   ]
 }
