@@ -770,21 +770,26 @@ async function submitPhotoUpload() {
     showLoading();
     document.getElementById('btn-submit').disabled = true;
 
-    const arrayBuffer = await selectedPhotoFile.arrayBuffer();
+    // Read file as base64
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;
+        // Remove "data:image/jpeg;base64," prefix
+        const base64Data = dataUrl.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(selectedPhotoFile);
+    });
 
-    const resp = await fetch(
-      `${API}/upload/${encodeURIComponent(state.teamId)}/${state.currentStep}`,
+    const result = await apiFetch(
+      `/upload/${encodeURIComponent(state.teamId)}/${state.currentStep}`,
       {
         method: 'POST',
-        headers: { 'Content-Type': selectedPhotoFile.type },
-        body: arrayBuffer
+        body: JSON.stringify({ photo: base64, mimeType: selectedPhotoFile.type })
       }
     );
-
-    const result = await resp.json();
-    if (!resp.ok) {
-      throw new Error(result.error || 'Erreur serveur');
-    }
 
     showFeedback(true, result.message);
     selectedPhotoFile = null;
@@ -885,6 +890,21 @@ function launchConfetti() {
     container.appendChild(piece);
   }
 }
+
+// ---- Help Popup ----
+function toggleHelpPopup() {
+  const popup = document.getElementById('help-popup');
+  popup.classList.toggle('hidden');
+}
+
+// Close help popup when clicking outside
+document.addEventListener('click', (e) => {
+  const popup = document.getElementById('help-popup');
+  const btn = document.getElementById('btn-help');
+  if (!popup.contains(e.target) && e.target !== btn) {
+    popup.classList.add('hidden');
+  }
+});
 
 // ---- Utilities ----
 function escapeHtml(str) {

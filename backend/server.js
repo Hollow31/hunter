@@ -30,11 +30,8 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Upload route BEFORE json parsing (uses express.raw() instead)
-app.use('/api/upload', uploadRouter);
-
-// JSON parsing for all other routes
-app.use(express.json({ limit: '1mb' }));
+// JSON parsing — increased limit for photo uploads (base64)
+app.use(express.json({ limit: '15mb' }));
 
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
@@ -64,6 +61,7 @@ if (!fs.existsSync(teamPhotosDir)) {
 app.use('/api/teams', teamsRouter);
 app.use('/api/steps', stepsRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/upload', uploadRouter);
 
 // SPA fallback - serve index.html for all non-API routes
 app.get('*', (req, res) => {

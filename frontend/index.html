@@ -247,6 +247,18 @@
     <button id="btn-admin-access" class="admin-fab" onclick="showScreen('admin-login')" title="Admin">
       ⚙️
     </button>
+
+    <!-- Help button (floating) -->
+    <button id="btn-help" class="help-fab" onclick="toggleHelpPopup()" title="Besoin d'aide ?">
+      ❓
+    </button>
+    <div id="help-popup" class="help-popup hidden">
+      <div class="help-popup-title">📞 Besoin d'aide ?</div>
+      <div class="help-popup-numbers">
+        <a href="tel:+33600000000" class="help-phone-link">📱 06 00 00 00 00</a>
+        <a href="tel:+33600000001" class="help-phone-link">📱 06 00 00 00 01</a>
+      </div>
+    </div>
   </div>
 
   <script src="js/app.js"></script>

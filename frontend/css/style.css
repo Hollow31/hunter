@@ -1124,6 +1124,83 @@ input::placeholder {
   border-color: var(--primary);
 }
 
+/* Help FAB */
+.help-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.help-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.help-popup {
+  position: fixed;
+  bottom: 78px;
+  left: 20px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 101;
+  min-width: 200px;
+  animation: popupIn 0.2s ease-out;
+}
+
+@keyframes popupIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.help-popup.hidden {
+  display: none;
+}
+
+.help-popup-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.help-popup-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.help-phone-link {
+  display: block;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.help-phone-link:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
 .admin-container {
   max-width: 900px;
 }

@@ -7,11 +7,8 @@ const router = express.Router();
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
-// Middleware to properly parse raw binary body for image uploads
-const rawImageParser = express.raw({ type: 'image/*', limit: '10mb' });
-
-// Upload a photo for a photo_upload step
-router.post('/:teamId/:stepNumber', rawImageParser, (req, res) => {
+// Upload a photo for a photo_upload step (base64 JSON)
+router.post('/:teamId/:stepNumber', (req, res) => {
   const { teamId, stepNumber } = req.params;
   const stepNum = parseInt(stepNumber, 10);
 
@@ -38,14 +35,20 @@ router.post('/:teamId/:stepNumber', rawImageParser, (req, res) => {
     return res.status(400).json({ error: 'Cette étape a déjà été validée.' });
   }
 
-  const contentType = req.headers['content-type'] || '';
-  if (!contentType.startsWith('image/')) {
+  const { photo, mimeType } = req.body || {};
+
+  if (!photo || !mimeType) {
+    return res.status(400).json({ error: 'Aucune photo reçue.' });
+  }
+
+  if (!mimeType.startsWith('image/')) {
     return res.status(400).json({ error: 'Le fichier doit être une image (JPEG, PNG, WebP).' });
   }
 
-  const buffer = req.body;
+  // Decode base64
+  const buffer = Buffer.from(photo, 'base64');
 
-  if (!Buffer.isBuffer(buffer) || buffer.length === 0) {
+  if (buffer.length === 0) {
     return res.status(400).json({ error: 'Aucune photo reçue.' });
   }
 
@@ -54,16 +57,15 @@ router.post('/:teamId/:stepNumber', rawImageParser, (req, res) => {
   }
 
   // Determine extension
-  const mediaType = contentType.split(';')[0].trim();
   const extMap = {
     'image/jpeg': '.jpg',
     'image/png': '.png',
     'image/webp': '.webp',
     'image/gif': '.gif'
   };
-  const ext = extMap[mediaType] || '.jpg';
+  const ext = extMap[mimeType] || '.jpg';
 
-  // Save file: team-photos/<teamId>_step<N>.<ext>
+  // Save file: team-photos/<safeName>_step<N>.<ext>
   const photosDir = path.join(UPLOADS_DIR, 'team-photos');
   if (!fs.existsSync(photosDir)) {
     fs.mkdirSync(photosDir, { recursive: true });
