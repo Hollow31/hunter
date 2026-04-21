@@ -491,7 +491,7 @@ function buildAnswerArea(step) {
       area.innerHTML = `
         <div class="photo-upload-area">
           <label class="photo-upload-label" id="photo-drop-zone">
-            <input type="file" id="photo-input" accept="image/*" capture="environment" hidden>
+            <input type="file" id="photo-input" accept="image/*" hidden>
             <div class="photo-upload-icon">📷</div>
             <div class="photo-upload-text">Cliquez ou déposez une photo ici</div>
             <div class="photo-upload-hint">JPEG, PNG, WebP — max 10 Mo</div>

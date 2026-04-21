@@ -76,6 +76,7 @@ cp -r "$SCRIPT_DIR/frontend" "$APP_DIR/"
 # Créer les répertoires nécessaires
 mkdir -p "$APP_DIR/backend/data"
 mkdir -p "$APP_DIR/backend/uploads"
+mkdir -p "$APP_DIR/backend/uploads/team-photos"
 
 # Permissions
 chown -R www-data:www-data "$APP_DIR"
