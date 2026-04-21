@@ -1065,6 +1065,7 @@ async function loadAdminTeams() {
                     <img src="${escapeHtml(url)}" alt="Photo étape ${stepNum}" class="admin-photo-thumb">
                   </a>
                   <span class="admin-photo-label">Étape ${stepNum}</span>
+                  <a href="${escapeHtml(url)}" download="${escapeHtml(team.name)}_etape${stepNum}" class="admin-photo-download">⬇️</a>
                 </div>`
               ).join('')}
             </div>

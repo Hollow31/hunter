@@ -1396,6 +1396,18 @@ input::placeholder {
   color: var(--text-muted);
 }
 
+.admin-photo-download {
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: var(--transition);
+}
+
+.admin-photo-download:hover {
+  opacity: 1;
+}
+
 .btn-sm {
   padding: 6px 12px;
   font-size: 0.8rem;
