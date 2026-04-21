@@ -38,6 +38,7 @@ router.post('/:teamId/:stepNumber', (req, res) => {
   const { photo, mimeType } = req.body || {};
 
   if (!photo || !mimeType) {
+    console.error('[Upload] req.body keys:', Object.keys(req.body || {}), '| photo length:', photo ? photo.length : 0, '| mimeType:', mimeType);
     return res.status(400).json({ error: 'Aucune photo reçue.' });
   }
 

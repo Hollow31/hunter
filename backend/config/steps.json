@@ -2,6 +2,10 @@
   "title": "La Grande Chasse au Trésor",
   "subtitle": "Résolvez les 10 énigmes pour découvrir le trésor !",
   "adminPassword": "test",
+  "helpPhones": [
+    { "label": "Organisateur 1", "number": "06 00 00 00 00" },
+    { "label": "Organisateur 2", "number": "06 00 00 00 01" }
+  ],
   "theme": {
     "primaryColor": "#e67e22",
     "secondaryColor": "#2c3e50",

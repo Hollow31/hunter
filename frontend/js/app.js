@@ -60,6 +60,15 @@ async function loadConfig() {
       if (config.theme.secondaryColor) root.style.setProperty('--secondary', config.theme.secondaryColor);
       if (config.theme.accentColor) root.style.setProperty('--accent', config.theme.accentColor);
     }
+
+    // Load help phone numbers
+    if (config.helpPhones && config.helpPhones.length > 0) {
+      const container = document.getElementById('help-popup-numbers');
+      container.innerHTML = config.helpPhones.map(p => {
+        const tel = p.number.replace(/\s/g, '');
+        return `<a href="tel:${tel}" class="help-phone-link">📱 ${escapeHtml(p.label)} : ${escapeHtml(p.number)}</a>`;
+      }).join('');
+    }
   } catch (e) {
     console.error('Config load failed:', e);
   }

@@ -103,7 +103,8 @@ router.get('/config', (req, res) => {
     title: config.title,
     subtitle: config.subtitle || '',
     totalSteps: config.steps.length,
-    theme: config.theme || {}
+    theme: config.theme || {},
+    helpPhones: config.helpPhones || []
   });
 });
 

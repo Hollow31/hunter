@@ -1129,25 +1129,25 @@ input::placeholder {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--primary);
-  border: none;
-  color: white;
-  font-size: 1.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1.2rem;
   cursor: pointer;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0.4;
 }
 
 .help-fab:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  border-color: var(--primary);
 }
 
 .help-popup {
