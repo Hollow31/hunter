@@ -94,7 +94,7 @@ router.post('/:teamId/:stepNumber', (req, res) => {
 
   // Store photo path in team data
   if (!team.photos) team.photos = {};
-  team.photos[stepNum] = `/uploads/team-photos/${filename}`;
+  team.photos[stepNum] = `/api/upload/photo/${filename}`;
 
   teams[teamIndex] = team;
   writeTeams(teams);
@@ -102,9 +102,27 @@ router.post('/:teamId/:stepNumber', (req, res) => {
   res.json({
     valid: true,
     message: 'Photo enregistrée avec succès !',
-    photoUrl: `/uploads/team-photos/${filename}`,
+    photoUrl: `/api/upload/photo/${filename}`,
     isFinished: isLastStep
   });
+});
+
+// Serve uploaded photos
+router.get('/photo/:filename', (req, res) => {
+  const filename = req.params.filename;
+
+  // Sanitize: only allow safe filenames
+  if (!/^[a-zA-Z0-9_\-]+\.\w+$/.test(filename)) {
+    return res.status(400).json({ error: 'Nom de fichier invalide.' });
+  }
+
+  const filepath = path.join(UPLOADS_DIR, 'team-photos', filename);
+
+  if (!fs.existsSync(filepath)) {
+    return res.status(404).json({ error: 'Photo non trouvée.' });
+  }
+
+  res.sendFile(filepath);
 });
 
 module.exports = router;
