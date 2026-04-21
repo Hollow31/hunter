@@ -114,6 +114,10 @@ Le fichier **`backend/config/steps.json`** est le cœur de la configuration. Voi
 {
   "title": "Ma Chasse au Trésor",
   "subtitle": "Sous-titre affiché sur la page d'accueil",
+  "helpPhones": [
+    { "label": "Organisateur 1", "number": "06 00 00 00 00" },
+    { "label": "Organisateur 2", "number": "06 00 00 00 01" }
+  ],
   "theme": {
     "primaryColor": "#e67e22",
     "secondaryColor": "#2c3e50",
@@ -124,6 +128,8 @@ Le fichier **`backend/config/steps.json`** est le cœur de la configuration. Voi
   "steps": [...]
 }
 ```
+
+Le champ `helpPhones` configure le bouton d'aide ❓ en bas à gauche de l'écran. Chaque entrée ajoute un numéro de téléphone cliquable (appel direct sur mobile).
 
 ### Types d'étapes disponibles
 
@@ -304,6 +310,7 @@ Dans `backend/config/steps.json`, modifiez le champ `adminPassword` :
 | Fonctionnalité | Description |
 |---|---|
 | **Vue équipes** | Voir toutes les équipes, leur progression (dots colorés), tentatives, durée |
+| **Vue photos** | Voir et télécharger les photos uploadées par chaque équipe |
 | **Vue réponses** | Voir toutes les réponses correctes pour chaque étape |
 | **Supprimer une équipe** | Bouton 🗑️ sur chaque carte d'équipe |
 | **Tout réinitialiser** | Supprime toutes les équipes et leur progression |

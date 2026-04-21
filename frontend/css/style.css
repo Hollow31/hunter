@@ -679,6 +679,38 @@ input::placeholder {
   margin-bottom: 8px;
 }
 
+.photo-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.photo-btn {
+  flex: 1;
+  min-width: 160px;
+  max-width: 250px;
+}
+
+.photo-drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  transition: var(--transition);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.photo-drop-zone.drag-active {
+  border-color: var(--primary);
+  background: rgba(230, 126, 34, 0.05);
+}
+
 .photo-upload-label {
   display: flex;
   flex-direction: column;

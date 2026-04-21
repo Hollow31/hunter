@@ -490,25 +490,37 @@ function buildAnswerArea(step) {
     case 'photo_upload':
       area.innerHTML = `
         <div class="photo-upload-area">
-          <label class="photo-upload-label" id="photo-drop-zone">
-            <input type="file" id="photo-input" accept="image/*" hidden>
-            <div class="photo-upload-icon">📷</div>
-            <div class="photo-upload-text">Cliquez ou déposez une photo ici</div>
-            <div class="photo-upload-hint">JPEG, PNG, WebP — max 10 Mo</div>
-          </label>
+          <input type="file" id="photo-input-camera" accept="image/*" capture="environment" hidden>
+          <input type="file" id="photo-input-gallery" accept="image/*" hidden>
+          <div id="photo-buttons" class="photo-buttons">
+            <button type="button" class="btn btn-primary photo-btn" id="btn-photo-camera">
+              📸 Prendre une photo
+            </button>
+            <button type="button" class="btn btn-secondary photo-btn" id="btn-photo-gallery">
+              🖼️ Choisir dans la galerie
+            </button>
+          </div>
+          <div class="photo-upload-hint">JPEG, PNG, WebP — max 10 Mo</div>
+          <div id="photo-drop-zone" class="photo-drop-zone">
+            <div class="photo-upload-text">ou glissez-déposez une photo ici</div>
+          </div>
           <div id="photo-preview-container" class="photo-preview-container hidden">
             <img id="photo-preview" src="" alt="Aperçu">
             <button class="btn btn-back btn-sm" onclick="clearPhotoPreview()">✕ Changer</button>
           </div>
         </div>
       `;
-      // File input handler
+      // File input handlers
       setTimeout(() => {
-        const input = document.getElementById('photo-input');
+        const inputCamera = document.getElementById('photo-input-camera');
+        const inputGallery = document.getElementById('photo-input-gallery');
         const dropZone = document.getElementById('photo-drop-zone');
-        if (input) {
-          input.addEventListener('change', handlePhotoSelect);
-        }
+
+        document.getElementById('btn-photo-camera').addEventListener('click', () => inputCamera.click());
+        document.getElementById('btn-photo-gallery').addEventListener('click', () => inputGallery.click());
+
+        if (inputCamera) inputCamera.addEventListener('change', handlePhotoSelect);
+        if (inputGallery) inputGallery.addEventListener('change', handlePhotoSelect);
         if (dropZone) {
           dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-active'); });
           dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-active'));
@@ -516,7 +528,6 @@ function buildAnswerArea(step) {
             e.preventDefault();
             dropZone.classList.remove('drag-active');
             if (e.dataTransfer.files.length > 0) {
-              document.getElementById('photo-input').files = e.dataTransfer.files;
               handlePhotoSelect({ target: { files: e.dataTransfer.files } });
             }
           });
@@ -757,7 +768,10 @@ function handlePhotoSelect(e) {
   reader.onload = (ev) => {
     document.getElementById('photo-preview').src = ev.target.result;
     document.getElementById('photo-preview-container').classList.remove('hidden');
-    document.getElementById('photo-drop-zone').classList.add('hidden');
+    const buttons = document.getElementById('photo-buttons');
+    const dropZone = document.getElementById('photo-drop-zone');
+    if (buttons) buttons.classList.add('hidden');
+    if (dropZone) dropZone.classList.add('hidden');
   };
   reader.readAsDataURL(file);
 }
@@ -765,8 +779,12 @@ function handlePhotoSelect(e) {
 function clearPhotoPreview() {
   selectedPhotoFile = null;
   document.getElementById('photo-preview-container').classList.add('hidden');
+  document.getElementById('photo-buttons').classList.remove('hidden');
   document.getElementById('photo-drop-zone').classList.remove('hidden');
-  document.getElementById('photo-input').value = '';
+  const inputCamera = document.getElementById('photo-input-camera');
+  const inputGallery = document.getElementById('photo-input-gallery');
+  if (inputCamera) inputCamera.value = '';
+  if (inputGallery) inputGallery.value = '';
 }
 
 async function submitPhotoUpload() {
