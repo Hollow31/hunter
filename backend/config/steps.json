@@ -19,7 +19,7 @@
     {
       "id": 1,
       "title": "Games Of Thrones",
-      "description": "XABIFKBI FP ZLJFKD",
+      "description": "XABIFKB FP ZLJFKD",
       "type": "single_answer",
       "image": "",
       "hint": "Phrase codée avec un décalage",
@@ -28,11 +28,37 @@
     {
       "id": 2,
       "title": "La casa de Papel",
-      "description": "Déchiffrez le code suivant : A=1, B=2, C=3...\n\n20-18-5-19-15-18",
-      "type": "cipher",
+      "description": "Saurez-vous retrouver leur nom de code ?",
+      "type": "multi_questions",
       "image": "",
       "hint": "Convertissez chaque nombre en lettre de l'alphabet",
-      "answers": ["tresor", "trésor"]
+      "questions": [
+        {
+          "description": "A",
+          "hint": "",
+          "answers": ["Tokyo", "tokyo"]
+        },
+        {
+          "description": "B",
+          "hint": "",
+          "answers": ["Berlin", "berlin"]
+        },
+        {
+          "description": "C",
+          "hint": "",
+          "answers": ["Nairobi", "nairobi"]
+        },
+        {
+          "description": "D",
+          "hint": "",
+          "answers": ["Rio", "rio"]
+        },
+        {
+          "description": "E",
+          "hint": "",
+          "answers": ["Helsinki", "helsinki"]
+        }        
+      ]
     },
     {
       "id": 3,
@@ -145,11 +171,11 @@
     {
       "id": 6,
       "title": "Les visiteurs",
-      "description": "Remettez ces films dans le bon ordre de sortie.",
+      "description": "Remettez dans l'ordre ces films du plus ancien au plus récent.",
       "type": "order",
       "image": "",
       "hint": "Pensez à l'époque de chaque film et à leur style visuel",
-      "correctOrder": ["Les visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Qu'est-ce qu'on a fait au bon Dieu ?", "Un p'tit truc en plus"]
+      "correctOrder": ["Les visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Vice Verca", "Un p'tit truc en plus"]
     },
     {
       "id": 7,
@@ -181,7 +207,7 @@
     {
       "id": 10,
       "title": "James Bond",
-      "description": "Soyez ingénieux, utilisez votre créativité, environnement pour révéler le code de cet agent",
+      "description": "Utilisez votre créativité, votre environnement ou toute autre ingéniosité pour révéler le code de cet agent",
       "type": "photo_upload",
       "image": "",
       "hint": "Soyez créatifs !"
