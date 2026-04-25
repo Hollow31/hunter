@@ -1,6 +1,6 @@
 {
   "title": "La Grande Chasse au Trésor",
-  "subtitle": "Résolvez les 10 énigmes pour découvrir le trésor !",
+  "subtitle": "Résolvez les 10 énigmes pour retrouver le trophée !",
   "adminPassword": "test",
   "helpPhones": [
     { "label": "Organisateur 1", "number": "06 00 00 00 00" },
@@ -13,7 +13,7 @@
     "backgroundImage": "",
     "logo": ""
   },
-  "finalMessage": "🎉 Félicitations ! Vous avez résolu toutes les énigmes !\n\nLe trésor se trouve sous le grand chêne au fond du jardin, derrière la troisième pierre en partant de la gauche.\n\nBravo pour votre persévérance !",
+  "finalMessage": "🎉 HD281ZP + Banana Man !",
   "finalImage": "",
   "steps": [
     {
