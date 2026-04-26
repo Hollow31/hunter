@@ -179,12 +179,28 @@
     },
     {
       "id": 7,
-      "title": "La petite sirène",
-      "description": "Que voyez-vous ?",
-      "type": "single_answer",
+      "title": "Sherlock Holmes",
+      "description": "Reconstituez les 3 puzzles pour retrouver le titre de la série ou du film.",
+      "type": "multi_questions",
       "image": "",
-      "hint": "Oh, un poisson !",
-      "answers": ["Tourniflette", "tourniflette"]
+      "hint": "Ayez l'oeil !",
+      "questions": [
+        {
+          "description": "Bleu",
+          "hint": "",
+          "answers": ["La petite Sirène", "la petite sirène", "La petite sirène", "la petite sirène", "Petite Sirène", "petite sirène"]
+        },
+        {
+          "description": "Rouge",
+          "hint": "",
+          "answers": ["Malcolm", "malcolm", "Malcolm in the middle", "malcolm in the middle", "Malcolm in the Middle"]
+        },
+        {
+          "description": "Vert",
+          "hint": "",
+          "answers": ["Camping Paradis", "Camping paradis", "camping paradis"]
+        }
+      ]
     },
     {
       "id": 8,
@@ -207,7 +223,7 @@
     {
       "id": 10,
       "title": "James Bond",
-      "description": "Utilisez votre créativité, votre environnement ou toute autre ingéniosité pour révéler le code de cet agent",
+      "description": "Prenez une photo en faisant apparaitre le code de cet agent, pour cela servez-vous de votre environnement, de vous et de votre créativité.",
       "type": "photo_upload",
       "image": "",
       "hint": "Soyez créatifs !"
