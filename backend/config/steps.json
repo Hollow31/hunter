@@ -27,11 +27,11 @@
     },
     {
       "id": 2,
-      "title": "La casa de Papel",
+      "title": "La Casa De Papel",
       "description": "Saurez-vous retrouver leur nom de code ?",
       "type": "multi_questions",
       "image": "",
-      "hint": "Convertissez chaque nombre en lettre de l'alphabet",
+      "hint": "Tokyo est une fille,\nBerlin est situé à la gauche de Rio,\nLa photo de Nairobi est la plus proche de sa ville,\nHelsinki ne part jamais sans son bonnet",
       "questions": [
         {
           "description": "A",
@@ -131,12 +131,12 @@
         {
           "description": "C'est bon, ça !",
           "hint": "",
-          "answers": ["La Grande Vadrouille", "la grande vadrouille"]
+          "answers": ["La Grande Vadrouille", "la grande vadrouille", "La Grande vadrouille", "la Grande vadrouille"]
         },
         {
           "description": "Il va faire tout noir",
           "hint": "",
-          "answers": ["RRrrrrrr", "rrrrrrrr", "rrr", "RRR", "Rrr", "RrR", "rRr", "rRR", "Rrrr", "rrrr", "RRrr", "rrRR", "rrrrr !!!", "RRR !!!"]
+          "answers": ["RRrrrrrr", "rrrrrrrr", "rrr", "RRR", "Rrr", "RrR", "rRr", "rRR", "Rrrr", "rrrr", "RRrr", "rrRR", "rrrrr !!!", "RRR !!!", "R", "r", "Rrrr !!!", "rrrr !!!", "RRrr !!!", "rrRR !!!", "rrrrr", "RRR", "R", "r"]
         },
         {
           "description": "Vers l'infini et au-delà",
@@ -170,12 +170,12 @@
     },
     {
       "id": 6,
-      "title": "Les visiteurs",
+      "title": "Les Visiteurs",
       "description": "Remettez dans l'ordre ces films du plus ancien au plus récent.",
       "type": "order",
       "image": "",
       "hint": "Pensez à l'époque de chaque film et à leur style visuel",
-      "correctOrder": ["Les visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Vice Verca", "Un p'tit truc en plus"]
+      "correctOrder": ["Les Visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Vice Verca", "Un p'tit truc en plus"]
     },
     {
       "id": 7,
@@ -183,7 +183,7 @@
       "description": "Reconstituez les 3 puzzles pour retrouver le titre de la série ou du film.",
       "type": "multi_questions",
       "image": "",
-      "hint": "Ayez l'oeil !",
+      "hint": "Ca nous semblait vraiment facile, alors il n'y a pas d'indice",
       "questions": [
         {
           "description": "Bleu",
