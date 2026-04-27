@@ -106,7 +106,7 @@
       "description": "A quel film appartient chaque citation ?",
       "type": "multi_questions",
       "image": "",
-      "hint": "Réfléchissez aux films célèbres",
+      "hint": "Les affiches ne sont pas réellement celles des films, mais une aide.",
       "questions": [
         {
           "description": "On ne laisse pas Bébé dans un coin",
@@ -174,7 +174,7 @@
       "description": "Remettez dans l'ordre ces films du plus ancien au plus récent.",
       "type": "order",
       "image": "",
-      "hint": "Pensez à l'époque de chaque film et à leur style visuel",
+      "hint": "Les indiens sont bien revenus avant les cons.",
       "correctOrder": ["Les Visiteurs", "Un indien dans la ville", "Le dîner de cons", "The Dark Night", "Vice Verca", "Un p'tit truc en plus"]
     },
     {
@@ -183,7 +183,7 @@
       "description": "Reconstituez les 3 puzzles pour retrouver le titre de la série ou du film.",
       "type": "multi_questions",
       "image": "",
-      "hint": "Ca nous semblait vraiment facile, alors il n'y a pas d'indice",
+      "hint": "Ca nous semblait vraiment facile, alors il n'y a pas d'indice. Mais faites les jusqu'au bout pour rigoler",
       "questions": [
         {
           "description": "Bleu",
@@ -208,7 +208,7 @@
       "description": "A vous de trouver l'indice, apprentis sorciers !",
       "type": "single_answer",
       "image": "",
-      "hint": "Trouvez le mot magique.",
+      "hint": "Non, n'ouvrez pas les bouteilles. Regardez encore.",
       "answers": ["potion", "Potion"]
     },
     {
