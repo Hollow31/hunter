@@ -41,18 +41,30 @@ router.get('/teams', requireAdmin, (req, res) => {
   const config = readConfig();
   const totalSteps = config.steps.length;
 
-  const summary = teams.map(t => ({
-    id: t.id,
-    name: t.name,
-    members: t.members,
-    completedSteps: t.completedSteps || [],
-    totalSteps,
-    startedAt: t.startedAt,
-    completedAt: t.completedAt,
-    attempts: t.attempts || {},
-    totalAttempts: Object.values(t.attempts || {}).reduce((a, b) => a + b, 0),
-    photos: t.photos || {}
-  }));
+  const summary = teams.map(t => {
+    // Normalize photo URLs: convert legacy /uploads/team-photos/... to /api/upload/photo/...
+    const photos = {};
+    for (const [stepNum, url] of Object.entries(t.photos || {})) {
+      if (typeof url === 'string' && url.startsWith('/uploads/team-photos/')) {
+        photos[stepNum] = url.replace('/uploads/team-photos/', '/api/upload/photo/');
+      } else {
+        photos[stepNum] = url;
+      }
+    }
+
+    return {
+      id: t.id,
+      name: t.name,
+      members: t.members,
+      completedSteps: t.completedSteps || [],
+      totalSteps,
+      startedAt: t.startedAt,
+      completedAt: t.completedAt,
+      attempts: t.attempts || {},
+      totalAttempts: Object.values(t.attempts || {}).reduce((a, b) => a + b, 0),
+      photos
+    };
+  });
 
   res.json(summary);
 });
