@@ -74,6 +74,7 @@ router.get('/:teamId/final', (req, res) => {
     teamName: team.name,
     finalMessage: config.finalMessage,
     finalImage: config.finalImage || null,
+    finalVideo: config.finalVideo || null,
     duration: `${minutes}min ${seconds}s`,
     totalAttempts: Object.values(team.attempts).reduce((a, b) => a + b, 0)
   });
@@ -196,6 +197,7 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
     if (isLastStep) {
       response.finalMessage = config.finalMessage;
       response.finalImage = config.finalImage || null;
+      response.finalVideo = config.finalVideo || null;
     }
 
     return res.json(response);

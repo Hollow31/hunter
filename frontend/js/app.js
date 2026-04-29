@@ -889,6 +889,14 @@ async function loadFinalScreen() {
       document.getElementById('final-image-container').classList.remove('hidden');
     }
 
+    if (data.finalVideo) {
+      const videoEl = document.getElementById('final-video');
+      videoEl.src = data.finalVideo;
+      document.getElementById('final-video-container').classList.remove('hidden');
+      // Tentative de lecture automatique (peut échouer selon les politiques navigateur)
+      videoEl.play().catch(() => { /* lecture manuelle requise */ });
+    }
+
     // Launch confetti!
     launchConfetti();
   } catch (e) {

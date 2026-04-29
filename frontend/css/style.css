@@ -939,6 +939,13 @@ input::placeholder {
   margin-top: 16px;
 }
 
+.final-message-box video {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  margin-top: 16px;
+  display: block;
+}
+
 /* ========================================
    Loading Overlay
    ======================================== */
