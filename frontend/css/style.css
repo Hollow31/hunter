@@ -592,6 +592,31 @@ input::placeholder {
   padding: 8px 12px;
 }
 
+.mq-block-wrong {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+  box-shadow: 0 0 0 1px rgba(231, 76, 60, 0.4);
+}
+
+.mq-block-correct {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.08);
+}
+
+.mq-status {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mq-status-wrong {
+  color: #e74c3c;
+}
+
+.mq-status-correct {
+  color: #27ae60;
+}
+
 /* QCM type */
 .qcm-grid {
   display: flex;

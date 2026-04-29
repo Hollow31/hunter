@@ -209,7 +209,8 @@ router.post('/:teamId/:stepNumber/answer', (req, res) => {
   res.json({
     valid: false,
     message: result.message,
-    attempts: team.attempts[stepNum]
+    attempts: team.attempts[stepNum],
+    wrongIndices: result.wrongIndices || null
   });
 });
 

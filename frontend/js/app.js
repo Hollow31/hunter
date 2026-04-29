@@ -403,10 +403,11 @@ function buildAnswerArea(step) {
       let mqHtml = '';
       step.questions.forEach((q, i) => {
         mqHtml += `
-          <div class="mq-block">
+          <div class="mq-block" id="mq-block-${i}">
             <div class="mq-description">${escapeHtml(q.description)}</div>
             ${q.hint ? `<button class="btn btn-hint btn-hint-mini" onclick="toggleMqHint(${i})">💡</button><div id="mq-hint-${i}" class="hint-content hidden"><p>${escapeHtml(q.hint)}</p></div>` : ''}
             <input type="text" class="multi-question-answer" data-index="${i}" placeholder="Réponse..." autocomplete="off">
+            <div class="mq-status hidden" id="mq-status-${i}"></div>
           </div>
         `;
       });
@@ -735,6 +736,7 @@ async function submitAnswer() {
       }
     } else {
       showFeedback(false, result.message);
+      highlightWrongQuestions(result.wrongIndices);
       document.getElementById('btn-submit').disabled = false;
     }
   } catch (e) {
@@ -858,6 +860,41 @@ function hideFeedback() {
 function toggleMqHint(index) {
   const el = document.getElementById('mq-hint-' + index);
   if (el) el.classList.toggle('hidden');
+}
+
+// ---- Multi-question wrong answers highlighting ----
+function highlightWrongQuestions(wrongIndices) {
+  // Reset all existing highlights
+  document.querySelectorAll('.mq-block').forEach(b => {
+    b.classList.remove('mq-block-wrong', 'mq-block-correct');
+  });
+  document.querySelectorAll('.mq-status').forEach(s => {
+    s.classList.add('hidden');
+    s.textContent = '';
+    s.classList.remove('mq-status-wrong', 'mq-status-correct');
+  });
+
+  if (!Array.isArray(wrongIndices)) return;
+
+  const total = document.querySelectorAll('.mq-block').length;
+  const wrongSet = new Set(wrongIndices);
+
+  for (let i = 0; i < total; i++) {
+    const block = document.getElementById('mq-block-' + i);
+    const status = document.getElementById('mq-status-' + i);
+    if (!block || !status) continue;
+    if (wrongSet.has(i)) {
+      block.classList.add('mq-block-wrong');
+      status.textContent = '✗ Réponse incorrecte';
+      status.classList.add('mq-status-wrong');
+      status.classList.remove('hidden');
+    } else {
+      block.classList.add('mq-block-correct');
+      status.textContent = '✓ Bonne réponse';
+      status.classList.add('mq-status-correct');
+      status.classList.remove('hidden');
+    }
+  }
 }
 
 // ---- Hint ----

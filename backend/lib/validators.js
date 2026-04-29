@@ -164,12 +164,16 @@ const validators = {
 
     const correctCount = results.filter(Boolean).length;
     const valid = correctCount === questions.length;
+    const wrongIndices = results
+      .map((ok, i) => (ok ? -1 : i))
+      .filter(i => i !== -1);
 
     return {
       valid,
       message: valid
         ? 'Toutes les réponses sont correctes !'
-        : `${correctCount}/${questions.length} réponses correctes.`
+        : `${correctCount}/${questions.length} réponses correctes.`,
+      wrongIndices
     };
   },
 
